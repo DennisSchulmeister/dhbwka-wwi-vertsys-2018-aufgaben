@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Aufgabe: Alle meine Stromkreise</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Entwicklung von REST-Webservices</h1>
+            <h2>Übungsaufgabe „Alle meine Stromkreise” 📺</h2>
+        </div>
+
+        <div class="container">
+            <p>
+                <b>Alle meine Stromkreise</b> ist der Name einer beliebten Daily Soap aus <b>Futurama</b> mit der berühmten
+                Schauspieleinheit <b>Calculon</b> (in der heutigen Zeit eher bekannt als <b>David Duchovny</b> aus <b>Akte X</b>
+                oder <b>Californication</b>) in der Hauptrolle. Leider wird die Serie erst ab dem Jahr 3000 ausgestrahlt, so
+                dass wir uns bis dahin mit dem Fernsehprogramm der heutigen Zeit begnügen müssen. Doch auch heute gibt es ja
+                genügend gute Serien, mit denen man sich die ein oder andere Nacht um die Ohren schlagen kann. 🛋️ In dieser
+                Aufgabe soll es deshalb darum gehen, eine kleine Datenbank zur Verwaltung unserer Lieblingsserien zu programmieren.
+            </p>
+            <table>
+               <tr>
+                   <td style="max-width: 50%; padding-bottom: 0.5em;">
+                       <a href="screenshot1.jpg" target="_blank">
+                           <img src="screenshot1.jpg" alt="Screenshot 1" style="max-width: 100%;" />
+                       </a>
+                   </td>
+                   <td style="max-width: 50%; padding-bottom: 0.5em;">
+                       <a href="screenshot2.jpg" target="_blank">
+                           <img src="screenshot2.jpg" alt="Screenshot 2" style="max-width: 100%;" />
+                       </a>
+                   </td>
+               </tr>
+               <tr>
+                   <td style="max-width: 50%;">
+                       <a href="screenshot3.jpg" target="_blank">
+                           <img src="screenshot3.jpg" alt="Screenshot 3" style="max-width: 100%;" />
+                       </a>
+                   </td>
+                   <td style="max-width: 50%;">
+                       <a href="screenshot4.jpg" target="_blank">
+                           <img src="screenshot4.jpg" alt="Screenshot 4" style="max-width: 100%;" />
+                       </a>
+                   </td>
+               </tr>
+           </table>
+           <p>
+               Die Anwendung besteht aus folgenden Teilkomponenten, die wir hier zu Ende programmieren wollen:
+           </p>
+           <table>
+               <tr>
+                   <td>
+                       🌍
+                   </td>
+                   <td>
+                       Ein REST-Webservice zur eigentlichen Verwaltung der Daten
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       📱
+                   </td>
+                   <td>
+                       Ein in JavaScript programmierter AJAX-Client
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                       💻
+                   </td>
+                   <td>
+                       Ein in Java programmierter Konsolen-Client
+                   </td>
+               </tr>
+           </table>
+        </div>
+
+        <div class="container">
+            <h2>Fertigstellen des REST-Webservices</h2>
+            <ul class="spacing">
+                <li>
+                    Lade dir von Moodle die ZIP-Datei <tt>REST_Serien_Server_Aufgabe.zip</tt> herunter und importiere sie in NetBeans.
+                </li>
+                <li>
+                    Das Projekt beinhaltet bereits sämtliche Entity-Klassen sowie sämtliche Enterprise Java Beans. Auch ein Teil des
+                    Webservices zur Anlage von Demodaten sowie zum Umgang mit Serien ist bereits ausprogrammiert. Du musst jedoch noch
+                    die Klasse <tt>SeasonResource</tt> ausprogrammieren, damit zu den Serien auch Staffeln gespeichert werden können.
+                    Welche Operationen der Webservice unterstützen soll, steht als Kommentar im Javacode. Wie du dabei vorgehen musst,
+                    steht in den Vorlesungsfolien. 📚
+                </li>
+                <li>
+                    Erweitere die Klasse <tt>TelevionRestApi</tt> um die Klasse <tt>SeasonResource</tt>, um den neuen Webservice für
+                    Staffeln zu aktivieren.
+                </li>
+                <li>
+                    Teste den neuen Webservice, indem du die Anwendung startest und im Browser alle Staffeln einer Serie sowie eine
+                    gezielte Staffel einer Serie abrufst.
+                </li>
+                <li>
+                    Kommentiere anschließend die zwei auskommentierten Abschnitte in der Datei <tt>pom.xml</tt> ein, um die automatische
+                    Erzeugung einer API-Dokumentation zu aktivieren. Danach führe in NetBeans ein „Clean and Build” aus, damit die Dokumentation
+                    auch wirklich generiert wird.
+                </li>
+                <li>
+                    Teste die API-Dokumentation im Browser und versuche verschiedene Testanfragen damit an den Server zu senden.
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2>Fertigstellung des AJAX-Clients</h2>
+            <ul class="spacing">
+                <li>
+                    Lade dir von Moodle die ZIP-Datei <tt>REST_Serien_AJAX_Aufgabe.zip</tt> herunter und importiere sie in NetBeans.
+                </li>
+                <li>
+                    <p>
+                        Vervollständige den JavaScript-Code in der Datei <tt>index.html</tt> so, dass eine Liste mit den gesuchten Serien
+                        vom Server abgerufen wird. Den Abruf kannst du wahlweise mit dem älteren <tt>XmlHttpRequest</tt>-Objekt oder der
+                        neueren <tt>Fetch API</tt> machen. Letzteres ist etwas komfortabler und funktioniert inzwischen auch mit allen
+                        verbreiteten Browsern:
+                    </p>
+                    <code style="font-weight: normal;">
+                        let antwort = await fetch("http://…", { <br />
+                        &nbsp;&nbsp; method: "get", <br />
+                        &nbsp;&nbsp; headers: { <br />
+                        &nbsp;&nbsp; &nbsp;&nbsp; "accept": "application/json" <br />
+                        &nbsp;&nbsp; } <br />
+                        }); <br />
+                        <br />
+                        let daten = await antwort.json(); <br />
+                    </code>
+                </li>
+                <li>
+                    <p>
+                        Nachdem du die Daten vom Server abgerufen hast, musst du sie natürlich noch darstellen. Hierfür musst du dem Element
+                        <tt>#ergebnis</tt>, in dem die Ergebnisse angezeigt werden sollen, zunächst die CSS-Klasse <tt>unsichtbar</tt> entfernen.
+                        Anschließend musst du je Serie ein <tt>&lt;div&gt;</tt> mit den empfangenen Daten erzeugen:
+                    </p>
+                    <code style="font-weight: normal;">
+                        &lt;div&gt; <br />
+                        &nbsp;&nbsp; &lt;b&gt;Id:&lt;/b&gt; … &lt;br/&gt; <br />
+                        &nbsp;&nbsp; &lt;b&gt;Title:&lt;/b&gt; … &lt;br/&gt; <br />
+                        &nbsp;&nbsp; &lt;b&gt;Genre:&lt;/b&gt; … &lt;br/&gt; <br />
+                        &nbsp;&nbsp; &lt;b&gt;Land:&lt;/b&gt; … &lt;br/&gt; <br />
+                        &nbsp;&nbsp; &lt;b&gt;Jahre:&lt;/b&gt; … bis … &lt;br/&gt; <br />
+                        &nbsp;&nbsp; &lt;b&gt;Staffeln:&lt;/b&gt; … &lt;br/&gt; <br />
+                        &nbsp;&nbsp; &lt;b&gt;Episoden:&lt;/b&gt; … &lt;br/&gt; <br />
+                        &lt;/div&gt; <br />
+                    </code>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2>Fertigstellen des Java-Clients</h2>
+            <ul class="spacing">
+                <li>
+                    Lade dir von Moodle die ZIP-Datei <tt>REST_Serien_Client_Aufgabe.zip</tt> herunter und importiere sie in NetBeans.
+                </li>
+                <li>
+                    Das Programm ist bereits weitgehend fertigstellt. Du musst lediglich die Klasse <tt>SeriesResource</tt>, die eine Art
+                    Proxy-Objekt für den Webserivce-Zugriff darstellt, zu Ende programmieren. Lege dabei für jede Methode der gleichnamigen
+                    Klasse auf dem Server ebenfalls eine Methode an. Im Gegensatz zur Serverversion musst du hier aber natürlich HTTP-Anfragen
+                    an den Server schicken. Wie das geht, steht in den Folien. Zusätzlich kannst du dich an der in der Klasse bereits vorhandenen
+                    Vorlage orientieren.
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

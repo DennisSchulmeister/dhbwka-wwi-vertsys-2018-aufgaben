@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Aufgabe: Wastebin</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Entwicklung einer MVC-Webanwendung</h1>
+            <h2>Übungsaufgabe „Wastebin” 🗑️</h2>
+        </div>
+
+        <div class="container">
+            <p>
+                Nachdem du so tapfer die ersten beiden Foliensätze zu „Grundlagen verteilter Systeme” und
+                „Enterprise Java Beans” durchgeackert hast, wollen wir diese Mühe gerne belohnen. 🏆 Deshalb
+                haben wir hier eine kleine Aufgabe für dich, bei der du die wichtigsten Aspekte von MVC
+                mit Servlets, JSP und EJB nochmal ausprobieren kannst.
+            </p>
+            <p>
+                Unsere kleine Anwendung heißt „Wastebin” und hat nur rein zufällig etwas mit dem ähnlich
+                klingenden Plagiat <a href="https://www.pastebin.com/" target="_blank">Pastebin</a> zu tun. 🤞🏼
+                Ähnlich wie dort soll unsere Anwendung dazu genutzt werden, Codeschnippsel zu speichern.
+                Die folgenden Screenshots zeigen, wie die Anwendung aussieht:
+            </p>
+
+            <table>
+                <tr>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot1.jpg" target="_blank">
+                            <img src="screenshot1.jpg" alt="Screenshot 1" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot2.jpg" target="_blank">
+                            <img src="screenshot2.jpg" alt="Screenshot 1" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot3.jpg" target="_blank">
+                            <img src="screenshot3.jpg" alt="Screenshot 1" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot4.jpg" target="_blank">
+                            <img src="screenshot4.jpg" alt="Screenshot 1" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container">
+            <p>
+                Der Quellcode ist wie folgt strukturiert:
+            </p>
+
+            <h3>Fachliche Klassen</h3>
+            <ul class="spacing">
+                <li>
+                    Paket <tt>….wastebin.jpa</tt> <br />
+                    Klasse <tt>Waste</tt> <br />
+                    Persistence Entity für einen Codeschnippsel
+                </li>
+                <li>
+                    Paket <tt>….wastebin.jpa</tt> <br />
+                    Klasse <tt>WasteType</tt> <br />
+                    Aufzählung der Programmiersprachen für das Feld "Typ"
+                </li>
+                <li>
+                    Paket <tt>….wastebin.ejb</tt> <br />
+                    Klasse <tt>WasteBean</tt> <br />
+                    EJB mit Funktionen zum Anlegen, Lesen, Ändern und Löschen von Einträgen
+                </li>
+            </ul>
+
+            <h3>Weboberfläche</h3>
+            <table>
+                <tr>
+                    <td style="padding-right: 2em;">
+                        <ul class="list-none spacing">
+                            <li>
+                                Paket <tt>….wastebin.web</tt> <br />
+                                Klasse <tt>IndexServlet</tt> <br />
+                                Servlet für die Startseite
+                            </li>
+                            <li>
+                                Datei <tt>/WEB-INF/index.jsp</tt> <br />
+                                JSP für die Startseite
+                            </li>
+                        </ul>
+                    </td>
+                    <td style="padding-right: 2em;">
+                        <ul class="list-none spacing">
+                            <li>
+                                Paket <tt>….wastebin.web</tt> <br />
+                                Klasse <tt>CreateServlet</tt> <br />
+                                Servlet für das Anlageformular
+                            </li>
+                            <li>
+                                Datei <tt>/WEB-INF/form.jsp</tt> <br />
+                                Formular zum Anlegen eines Eintrags
+                            </li>
+                            <li>
+                                Paket <tt>….wastebin.web</tt> <br />
+                                Klasse <tt>WasteForm</tt> <br />
+                                Hilfsklasse zum Prüfen der Formulareingaben
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-none spacing">
+                            <li>
+                                Paket <tt>….wastebin.web</tt> <br />
+                                Klasse <tt>ViewServlet</tt> <br />
+                                Servlet für die Anzeige eines Eintrags
+                            </li>
+                            <li>
+                                Datei <tt>/WEB-INF/view.jsp</tt> <br />
+                                JSP zum Anzeigen eines Eintrags
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ul class="list-none spacing">
+                            <li>
+                                Datei <tt>/WEB-INF/tags/templates/base.tag</tt> <br />
+                                HTML-Template für alle Seiten
+                            </li>
+                            <li>
+                                Datei <tt>style.css</tt> <br />
+                                CSS-Stylesheet
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-none spacing">
+                            <li>
+                                Ordner <tt>/prism/</tt> <br />
+                                Prism.js: JavaScript-Bibliothek für das Syntax Highlighting
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container">
+            <h2>Aufgabenstellung</h2>
+            <ol class="spacing">
+                <li>
+                    Lade dir von Moodle die ZIP-Datei <tt>Wastebin_Aufgabe.zip</tt> herunter und importiere sie in NetBeans.
+                </li>
+                <li>
+                    Vervollständige die Methode <tt>doGet()</tt> der Klasse <tt>IndexServlet</tt>.
+                </li>
+                <li>
+                    Vervollständige die Methode <tt>doPost()</tt> der Klasse <tt>CreateServlet</tt>.
+                </li>
+                <li>
+                    Vervollständige die Datei <tt>/WEB-INF/form.jsp</tt>, so dass die Fehlermeldungen ausgegeben werden.
+                </li>
+                <li>
+                    Vervollständige die Methode <tt>doGet()</tt> der Klasse <tt>ViewServlet</tt>.
+                </li>
+            </ol>
+            <p>
+                Die anzupassenden Stellen sind mit „TODO” und einer kurzen Erklärung gekennzeichnet. Hauptsächlich geht es darum,
+                die EJB an der richtigen Stelle aufzurufen und ein wenig dein Wissen aus Webprogrammierung anzuwenden. 🙂
+            </p>
+        </div>
+
+        <div class="container">
+            <h2>Bonusaufgabe</h2>
+            <p>Erweitere die Anwendung so, dass vorhandene Codeschnippsel nachträglich bearbeitet und gelöscht werden können.</p>
+        </div>
+    </body>
+</html>

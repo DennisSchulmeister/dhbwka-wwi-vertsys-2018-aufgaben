@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Musterlösung zur benotete Hausaufgabe über SOAP-Webservices</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="heading">
+            <span class="h1">
+                Musterlösung
+            </span>
+            <span class="h2">
+                SOAP-Webservices
+            </span>
+        </div>
+
+        <div class="container flattop">
+            <p>
+                Die Kombination aus <tt>@WebMethod</tt> und <tt>@WebResult</tt> wird mit einem Punkt
+                bewertet. Ebenso ergeben alle <tt>@WebParam</tt> einer Methode zusammen einen Punkt.
+                Die Methodensignatur sowie dier korrekte Aufruf der <tt>TaskBean</tt> wird jeweils
+                mit einem halben Punkt bewertet. Für das Einbinden der fremden EJB gibt es einen Punkt.
+                Maximal kann es <b>15 Punkte</b> geben.
+            </p>
+<pre><code>@Stateless                                                             1P
+@WebService                                                            1P
+public class TaskWebservice {                                          1P
+
+    @EJB                                                              |
+    TaskBean taskBean;                                                |1P
+
+    //
+    // Von der EntityBean geerbte Methoden
+    //
+
+    @WebMethod                                                        |
+    @WebResult(name = "task")                                         |1P
+    public Task findById(                                            0,5P
+            @WebParam(name = "id") long id) {                          1P
+
+        return taskBean.findById(id);                                0,5P
+    }
+
+    @WebMethod                                                        |
+    @WebResult(name = "task")                                         |1P
+    public List&lt;Task&gt; findAll() {                                    0,5P
+        return taskBean.findAll();                                   0,5P
+    }
+
+    //
+    // In der TaskBean definierte Methoden
+    //
+
+    @WebMethod                                                        |
+    @WebResult(name = "task")                                         |1P
+    public List&lt;Task&gt; findByUsername(                                0,5P
+            @WebParam(name = "username") String username) {            1P
+
+        return taskBean.findByUsername(username);                    0,5P
+    }
+
+    @WebMethod                                                        |
+    @WebResult(name = "task")                                         |1P
+    public List&lt;Task&gt; search(                                        0,5P
+            @WebParam(name = "search") String search,                 |
+            @WebParam(name = "category") Category category,           |1P
+            @WebParam(name = "status") TaskStatus status) {           |
+
+        return taskBean.search(search, category, status);            0,5P
+    }
+}
+</code></pre>
+        </div>
+    </body>
+</html>

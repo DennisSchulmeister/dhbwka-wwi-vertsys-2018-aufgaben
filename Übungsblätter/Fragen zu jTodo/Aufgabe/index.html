@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Aufgabe: Fragen zu jTodo</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Jakarta Enterprise Edition</h1>
+            <h2>Fragen zu jTodo 📅</h2>
+        </div>
+
+        <div class="container">
+            <p>
+                Während der Portfolioaufgabe werdet ihr vor der Herausforderung stehen, die Beispielanwendung jTodo grundlegend
+                umzubauen, so dass sie statt zu erledigender Aufgaben irgendwelche anderen Datensätze verwaltet. Dieses Aufgabenblatt
+                soll euch deshalb helfen, euch in den Quellcode einzulesen, bevor ihr anfangt, alles abzureißen 🏗️. Manche Fragen
+                beziehen sich deshalb auch explizit auf Themen, die wir in der Vorlesung nicht oder nur am Rande angesprochen haben,
+                da die Fähigkeit, sich auch dann in fremden Code einzulesen, wenn man nicht alle technischen Einzelheiten versteht,
+                im Programmieralltag sehr wichtig ist. Aber keine Angst. Mit etwas Nachdenken sollten alle Fragen lösbar sein. 🤔
+            </p>
+             <table>
+                <tr>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot1.png" target="_blank">
+                            <img src="screenshot1.png" alt="Screenshot 1" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot2.png" target="_blank">
+                            <img src="screenshot2.png" alt="Screenshot 2" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container">
+            <h2>Erste Schritte</h2>
+            <ol class="spacing numbered">
+                <li>
+                    Lade den Quellcode aus dem
+                    <a href="https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-jtodo" target="_blank">GitHub-Repository</a>
+                    herunter und importiere ihn in NetBeans.
+                </li>
+                <li>
+                    Nimm an dieser Stelle noch keine Änderungen am Quellcode vor! Versuche stattdessen einfach nur, die Anwendung auszuführen
+                    und zum Laufen zu bekommen.
+                </li>
+                <li>
+                    Sobald die Anwendung läuft, registriere dich mit einem neuen Benutzerkonto.
+                </li>
+                <li>
+                    Anschließend erkunde ein wenig die Funktionen, indem du mehrere Kategorien und mehrere Aufgaben anlegst.
+                </li>
+                <li>
+                    Versuche dann, über das Dashboard und die Listenansicht verschiedene Aufgabenlisten zusammenzustellen.
+                </li>
+            </ol>
+        </div>
+
+        <div class="container">
+            <h2>Fragen zur Anwendung</h2>
+
+            <h3>1. Umsetzung der MVC-Architektur</h3>
+            <ol class="spacing">
+                <li>
+                    Der Quellcode besteht aus ziemlich vielen Paketen. Erkläre für jedes Paket, zu welchem Funktionsbereich
+                    der Anwendung es gehört und für welche Art von Klassen es gedacht ist.
+                </li>
+                <li>
+                    Ordne die Inhalte der beiden Ordner <tt>Web</tt> <tt>Pages</tt> und <tt>Source</tt> <tt>Pages</tt> den einzelnen
+                    Schichten von Model-View-Controller zu. Welcher Inhalt gehört zu welcher Schicht und warum?
+                </li>
+                <li>
+                    Schaue dir die Klasse <tt>TaskListServlet</tt> genauer an. Erkläre was der Quellcode macht, wenn ein Anwender
+                    die Übersichtsliste aufruft.
+                </li>
+                <li>
+                    Erkläre in diesem Zusammenhang auch, wie in der Datei <tt>WEB-INF\tasks\task_list.jsp</tt> der HTML-Code zur Anzeige der
+                    Übersichtsseite generiert wird.
+                </li>
+                <li>
+                    Warum befinden sich die JSP-Dateien alle im Unterverzeichnis <tt>WEB-INF</tt> und nicht direkt im Ordner
+                    <tt>Web</tt> <tt>Pages</tt>?
+                </li>
+                <li>
+                    Welchem Zweck dient die Datei <tt>WEB-INF\tags\templates\base.tag</tt>?
+                </li>
+                <li>
+                    Welche Schritte durchläuft das <tt>TaskEditServlet</tt> beim Anlegen einer neuen Aufgabe?
+                </li>
+            </ol>
+
+            <h3>2. Benutzerauthentifizierung</h3>
+            <ol class="spacing">
+                <li>
+                    Beschreibe, wie die Benutzerautentifizierung in der Datei <tt>Web Pages\WEB-INF\web.xml</tt>
+                    konfiguriert wurde.
+                </li>
+                <li>
+                    Woher weiß der Applikationsserver, gegen welche Tabelle er die Anmeldedaten prüfen muss?
+                </li>
+                <li>
+                    Welchen Code müsste man in die <tt>web.xml</tt> einfügen, um eine zweite Rolle zu definieren?¹
+                </li>
+                <li>
+                    Mit welcher Annotation könnte die neue Benutzerrolle in den EJBs geprüft werden?
+                </li>
+            </ol>
+            <p>
+                <small>
+                    ¹ Nur die Definition der Rolle ohne Zuweisung zu einem URL-Bereich.
+                </small>
+            </p>
+
+            <h3>3. Überprüfung der Benutzereingaben</h3>
+            <p>
+                Zur Überprüfung der Benutzereingaben werden nur teilweise manuell ausprogrammierte <tt>if</tt>-Anweisungen im
+                Quellcode verwendet. Die meisten Prüfungen werden durch zusätzliche Annotationen in den Entity-Klassen sowie
+                einer kleinen Hilfsmethode in der Klasse <tt>….ejb.ValidationBean</tt> vorgenommen. Es handelt sich dabei um
+                die <a href="http://beanvalidation.org/" target="_blank">Bean Validation</a> API von Jakarta&nbsp;EE.
+            </p>
+            <ol class="spacing">
+                <li>
+                    Für welche Prüfungen wird die Bean Validation API in den Entity-Klassen verwendet? Benenne die Annotationen
+                    und ihre jeweilige Funktion.
+                </li>
+                <li>
+                    Schaue dir die <a href="https://javaee.github.io/javaee-spec/javadocs/" target="_blank">Jakarta EE API-Dokumentation</a>
+                    an und finde zwei weitere Annotationen zur Beanvalidierung.
+                </li>
+                <li>
+                    Überlege dir zwei Vorteile, die Bean Validation gegenüber gewöhnlichen <tt>if</tt>-Abfragen bieten könnte.
+                    Gehe dabei davon aus, dass wir möglicherweise in Zukunft einen Smartphone-Client für die Anwendung schreiben
+                    wollen, der zwar auf die EJBs nicht aber auf die Servlets und JSPs zugreifen kann.
+                </li>
+            </ol>
+        </div>
+    </body>
+</html>

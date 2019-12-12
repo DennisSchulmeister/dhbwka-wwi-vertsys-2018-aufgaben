@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Lösung: Fragen zu jTodo</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Jakarta Enterprise Edition</h1>
+            <h2>Lösung zu den Fragen zu jTodo 📅</h2>
+        </div>
+
+        <div class="container">
+            <h2>1. Umsetzung der MVC-Architektur</h2>
+
+            <p>
+                <span class="nr">a)</span>
+                Inhalte der einzelnen Pakete:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Paket
+                        </th>
+                        <th>
+                            Inhalt
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <tt>dhbwka.wwi.vertsys.javaee.jtodo</tt>
+                    </td>
+                    <td>
+                        Oberpaket der gesamten Anwendung
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; <tt>common</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; Übergreifende Anwendungsfunktionen
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; <tt>ejb</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Enterprise Java Beans als Serviceschicht
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; <tt>jpa</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Persistence Entities für das Datenmodell
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; <tt>web</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Servlets und Klassen für die Weboberfläche
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; <tt>dashboard</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; Alles rund um die Dashboard-Ansicht
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; <tt>ejb</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Enterprise Java Beans als Serviceschicht
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; <tt>web</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Servlets und Klassen für die Weboberfläche
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; <tt>tasks</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; Verwaltung von Aufgaben und Kategorien
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; <tt>ejb</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Enterprise Java Beans als Serviceschicht
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; <tt>jpa</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Persistence Entities für das Datenmodell
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; <tt>web</tt>
+                    </td>
+                    <td>
+                        &nbsp;&nbsp; &nbsp;&nbsp; Servlets und Klassen für die Weboberfläche
+                    </td>
+                </tr>
+            </table>
+
+            <p class="bigskip">
+                <span class="nr">b)</span>
+                Zuordnung der Quellcodes zu den Schichten von Model-View-Controller:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Quellcode
+                        </th>
+                        <th>
+                            MVC-Schicht
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        Ordner <tt>Web</tt> <tt>Pages</tt>
+                    </td>
+                    <td>
+                        View
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        EJBs und Entities
+                    </td>
+                    <td>
+                        Model
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Servlets
+                    </td>
+                    <td>
+                        Controller
+                    </td>
+                </tr>
+            </table>
+
+            <p class="bigskip">
+                <span class="nr">c)</span>
+                Schritte im <tt>TaskListServlet</tt> beim Aufruf der Übersichtsliste:
+            </p>
+            <ol class="spacing">
+                <li>
+                    Am Anfang der Servletklasse werden mit <tt>@EJB</tt> Referenzen auf alle benötigten Enterprise Java Beans definiert.
+                    Als Methode besitzt das Servlet nur die <tt>doGet()</tt>, um auf GET-Anfragen reagieren zu können. Alle anderen
+                    HTTP-Verben werden ignoriert.
+                </li>
+                <li>
+                    Innerhalb der <tt>doGet()</tt>-Methode werden zunächst alle Kategorien und alle Statuswerte ermittelt und im
+                    Request Context abgelegt. Auf diese Weise stehen die Werte später in der JSP zur Verfügung.
+                </li>
+                <li>
+                    Anschließend werden die drei URL-Parameter und/oder Formularwerte <tt>search_text</tt>, <tt>search_category</tt>
+                    und <tt>search_status</tt> ausgelesen. Bei einem normalen Aufruf der Übersichtsseite sind diese leer. Beim Aufruf
+                    der Seite über das Dashboard werden sie jedoch übergeben, um die Liste einzuschränken. Außerdem befindet sich
+                    innerhalb der Übersichtsseite ein Suchformular, das die Werte ebenfalls übergeben kann.
+                </li>
+                <li>
+                    Über die Methode <tt>this.taskBean.search()</tt> werden die gewünschten Aufgaben aus der Datenbank gelesen und
+                    anschließend im Request Context abgelegt.
+                </li>
+                <li>
+                    Zum Schluss wird die Bearbeitung an die <tt>/WEB-INF/tasks/task_list.jsp</tt> übergeben, um den anzuzeigenden
+                    HTML-Code zu generieren.
+                </li>
+            </ol>
+
+            <p class="bigskip">
+                <span class="nr">d)</span>
+                Generierung des HTML-Codes in der Datei <tt>WEB-INF\tasks\task_list.jsp</tt>:
+            </p>
+            <ol class="spacing">
+                <li>
+                    Über das JSP-Element <tt>&lt;template:base&gt;</tt> wird das HTML-Grundgerüst aus der Datei <tt>base.tag</tt>
+                    angesprochen und in die Antwort gestellt.
+                </li>
+                <li>
+                    Die Elemente <tt>&lt;jsp:attribute name="…"&gt;</tt> füllen dabei die in der <tt>base.tag</tt> vordefinierten
+                    Bereiche mit Inhalten. Die <tt>base.tag</tt> funktioniert somit wie eine Schablone für HTML-Seiten, die hier
+                    mit Inhalt versehen wird.
+                </li>
+                <li>
+                    Der Hauptteil der Seite befindet sich innerhalb von <tt>&lt;jsp:attribute name="content"&gt;</tt> und
+                    <tt>&lt;/jsp:attribute&gt;</tt>. Hier wird die eigentliche Aufgabenliste erzeugt.
+                </li>
+                <li>
+                    Oberhalb der Aufgabenliste wird mit <tt>&lt;form&gt;</tt> ein Formular zum Durchsuchen der Liste generiert.
+                    Das Formular ist so gebaut, dass es beim Abschicken eine GET-Anfrage an den Server mit den drei Parametern
+                    <tt>search_text</tt>, <tt>search_category</tt> und <tt>search_status</tt> sendet. Hierzu werden die im
+                    Request Context abgelegten Kategorien und Statuswerte in Dropdown-Listen gestellt.
+                </li>
+                <li>
+                    Mit <tt>&lt;c:choose&gt;&lt;c:when test="${empty tasks}"&gt;…</tt> wird geprüft, ob es überhaupt anzuzeigende
+                    Aufgaben gibt. Wenn nicht, wird einfach nur ein Hinweistext ausgegeben, sonst eine tabellarische Übersicht.
+                </li>
+                <li>
+                    <tt>&lt;jsp:useBean id="utils" class="dhbwka.wwi.vertsys.javaee.jtodo.common.web.WebUtils"/&gt;</tt> <br />
+                    stellt die Klasse <tt>WebUtils</tt> unter dem Namen <tt>utils</tt> zur Verfügung, damit ihre Methoden in der
+                    JSP aufgerufen werden können.
+                </li>
+                <li>
+                    <tt>&lt;c:forEach items="${tasks}" var="task"&gt;</tt> bildet eine Schleife über alle im Request Context
+                    abgelegten Aufgabenobjekte.
+                </li>
+                <li>
+                    Innerhalb der Schleife werden mit <tt>&lt;c:out value="${task.…}"/&gt;</tt> die einzelnen Werte der Aufgaben ausgegeben.
+                </li>
+            </ol>
+
+            <p class="bigskip">
+                <span class="nr">e)</span>
+                Die JSP-Dateien liegen im Unterverzeichnis <tt>WEB-INF</tt>, damit der Anwender sie nicht ohne Umweg über ein
+                vorgeschaltetes Servlet aufrufen kann. Würden sie direkt im Ordner <tt>Web</tt> <tt>Pages</tt> liegen, hätte
+                jede JSP eine eigene URL, über die sie per HTTP aufgerufen werden könnte. Im Order <tt>WEB-INF</tt> werden sie
+                stattdessen vor direkten Aufrufen „versteckt”, so dass jede HTTP-Anfrage erst an ein Servlet geschickt werden
+                muss, welches die anzuzeigenden Daten im Request Context ablegt, bevor sie serverintern an die zuständige
+                JSP weitergeleitet wird.
+            </p>
+
+            <p class="bigskip">
+                <span class="nr">f)</span>
+                Die Datei <tt>WEB-INF\tags\templates\base.tag</tt> definiert das HTML-Grundgerüst aller Seiten innerhalb der
+                Webanwendung. Dadurch muss in den einzelnen JSPs nur noch der HTML-Code ausprogrammiert werden, der von Seite
+                zu Seite unterschiedlich ist. Die <tt>base.tag</tt> wird zu diesem Zweck über das Element <tt>&lt;template:base&gt;</tt>
+                in den JSP-Dateien aufgerufen.
+            </p>
+
+            <p class="bigskip">
+                <span class="nr">g)</span>
+                Schritte im <tt>TaskEditServlet</tt> beim Speichern eines Datensatzes:
+            </p>
+            <ol class="spacing">
+                <li>
+                    Zunächst wird in <tt>doPost()</tt> gerpfüt, ob im Parameter <tt>action</tt> der Wert <tt>save</tt>
+                    oder <tt>delete</tt> mitgegeben wurde. Je nach Wert wird dann die Methode <tt>saveTask()</tt> oder
+                    <tt>deleteTask</tt> aufgerufen.
+                </li>
+                <li>
+                    In <tt>saveTask()</tt> werden dann zunächst alle Formularfelder ausgelesen und in Stringfelder geschrieben.
+                </li>
+                <li>
+                    Danach wird <tt>getRequestedTask()</tt> aufgerufen, um anhand der URL entweder das zu bearbeitende
+                    <tt>Task</tt>-Objekt auszulesen oder eine neue Objektinstanz zu erzeugen.
+                </li>
+                <li>
+                    Anschließend werden die eingegebenen Werte an das ermittelte <tt>Task</tt>-Objekt übergeben.
+                    Kommt es dabei zu Fehlern, wie zum Beispiel dass das Datum oder die Uhrzeit nicht interpretiert
+                    werden können, werden diese in die Fehlerliste aufgenommen.
+                </li>
+                <li>
+                    Das <tt>Task</tt>-Objekt wird mit der <tt>ValidationBean</tt> überprüft.
+                </li>
+                <li>
+                    Falls keine Fehler gefunden wurden, wird der Datensatz gespeichert und der Anwender zur
+                    Startseite weitergeleitet.
+                </li>
+                <li>
+                    Falls es Fehler gab, werden die bisherigen Formulareingaben und gefundenen Fehler in der HTTP-Session
+                    abgelegt und das Erfassungsformular erneut angezeigt.
+                </li>
+            </ol>
+        </div>
+
+        <div class="container">
+            <h2>2. Benutzerauthentifizierung</h2>
+
+            <p>
+                <span class="nr">a)</span>
+                Konfiguration in der Datei <tt>Web Pages\WEB-INF\web.xml</tt>:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            XML-Element
+                        </th>
+                        <th>
+                            Bedeutung
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <tt>&lt;security-constraint&gt;</tt>
+                    </td>
+                    <td>
+                        Hier wird definiert, dass alle URLs, die mit <tt>/app/*</tt>
+                        beginnen nur von Benutzern aufgerufen werden können, die die Rolle <tt>app-user</tt> besitzen.
+                        Der Aufruf muss zusätzlich über eine gesicherte HTTPS-Verbindung erfolgen.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>&lt;security-role&gt;</tt>
+                    </td>
+                    <td>
+                        Hier wird die Rolle <tt>app-user</tt> definiert.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>&lt;login-config&gt;</tt>
+                    </td>
+                    <td>
+                        Hier wird festgelegt, dass die Authentifizierung über ein Login-Formular
+                        erfolgt und es werden die JSP-Dateien für das Formular und die Fehlerseite hinterlegt.
+                    </td>
+                </tr>
+            </table>
+
+            <p class="bigskip">
+                <span class="nr">b)</span>
+                Die Tabelle mit den Benutzerdaten wird in der Serverkonfiguration hinterlegt. Im Fall von TomEE
+                in der Datei <tt>META-INF/context.xml</tt> im Ordner <tt>Web</tt> <tt>Pages</tt>.
+            </p>
+
+            <p class="bigskip">
+                <span class="nr">c)</span>
+                Zusätzlicher Code zur Definition einer weiteren Benutzerrolle:
+            </p>
+            <code style="font-weight: normal;">
+                <b>&lt;security-role&gt;</b> <br />
+                &nbsp;&nbsp; <b>&lt;description&gt;</b> <br />
+                &nbsp;&nbsp; &nbsp;&nbsp; Beschreibung … <br />
+                &nbsp;&nbsp;<b>&lt;/description&gt;</b> <br />
+                &nbsp;&nbsp;<b>&lt;role-name&gt;</b> <br />
+                &nbsp;&nbsp; &nbsp;&nbsp; name-der-rolle <br />
+                &nbsp;&nbsp;<b>&lt;/role-name&gt;</b> <br />
+                <b>&lt;/security-role&gt;</b> <br />
+            </code>
+
+            <p class="bigskip">
+                <span class="nr">d)</span>
+                Zur Prüfung der neuen Rolle kann die Annotation <tt>@RolesAllowed("name-der-rolle")</tt> verwendet werden.
+            </p>
+        </div>
+
+        <div class="container">
+            <h2>3. Überprüfung der Benutzereingaben</h2>
+
+            <p>
+                <span class="nr">a)</span>
+                Verwendete Annotationen zur Beanvalidierung:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Annotation
+                        </th>
+                        <th>
+                            Aufgabe
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <tt>@NotNull</tt>
+                    </td>
+                    <td>
+                        Stellt sicher, dass der Wert niemals <tt>null</tt> sein darf.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>@Size</tt>
+                    </td>
+                    <td>
+                        Legt die Mindest- und Maximallänge eines Wertes fest.
+                    </td>
+                </tr>
+            </table>
+
+            <p class="bigskip">
+                <span class="nr">b)</span>
+                Weitere, nicht im Quellcode verwendete Annotationen:
+                <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/package-summary.html" target="_blank">Siehe hier</a>
+            </p>
+
+            <p class="bigskip">
+                <span class="nr">c)</span>
+                Mögliche Vorteile aus der Nutzung von Bean Validation, auch in Hinblick auf unterschiedliche
+                Clients der Anwendung:
+            </p>
+            <ol class="spacing">
+                <li>
+                    Es muss weniger Quellcode geschrieben werden, die meisten <tt>if</tt>-Abfragen können durch
+                    einfache Annotationen ersetzt werden.
+                </li>
+                <li>
+                    Die Annotationen werden direkt bei den Entity-Klassen hinzugefügt, da es um die Eigenschaften
+                    ihrer Felder geht. Es finden kaum noch manuelle Prüfungen in den Servlets statt.
+                </li>
+                <li>
+                    Dadurch müssen die Prüfungen auch nicht für jeden Client aufs Neue programmiert werden, was
+                    beim alten Vorgehen der Fall wäre, da alle Clients zwar die EJBs oft aber nicht die Servlets
+                    der Anwendung nutzen können.
+                </li>
+            </ol>
+        </div>
+    </body>
+</html>

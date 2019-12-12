@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Portfolioaufgabe zu Publish/Subscribe mit MQTT </title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="prism.css" />
+    </head>
+    <body>
+        <div class="heading">
+            <span class="h1">
+                Portfolioaufgabe
+            </span>
+            <span class="h2">
+                 Publish/Subscribe mit MQTT
+            </span>
+        </div>
+
+        <div class="container flattop">
+            <p>
+                In der Vorlesung haben wir bereits gesehen, dass MQTT quasi das Standardprotokoll schlechthin für
+                jegliche IoT-Anwendungsfälle ist (neben CoAP). 🤖 In dieser Aufgabe geht es daher darum, eine
+                Fahrzeugflotte 🏎️ in Echtzeit zu überwachen und die gesammelten Daten in einer Weboberfläche darzustellen.
+            </p>
+            <table>
+                <tr>
+                    <td style="width: 33%;">
+                        <a href="screenshot1.png" target="_blank">
+                            <img src="screenshot1.png" alt="Screenshot 1" style="width: 100%;" />
+                            Der laufende MQTT-Server
+                        </a>
+                    </td>
+                    <td style="width: 33%;">
+                        <a href="screenshot2.png" target="_blank">
+                            <img src="screenshot2.png" alt="Screenshot 2" style="width: 100%;" />
+                            Ein simuliertes Fahrzeug
+                        </a>
+                    </td>
+                    <td style="width: 33%;">
+                        <a href="screenshot3.png" target="_blank">
+                            <img src="screenshot3.png" alt="Screenshot 3" style="width: 100%;" />
+                            Ja, wo fahren sie denn?
+                        </a>
+                    </td>
+                    <td style="width: 1%"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="heading">
+            Aufgabenstellung
+        </div>
+        <div class="container flattop">
+            <h3>Überwachung der Fahrzeuge</h3>
+            <p>
+                Da wir uns für die Vorlesung leider keine echten Fahrzeuge leisten können, müssen wir hier ein wenig
+                schummeln: Wir simulieren die Fahrzeuge einfach mit einem kleinen Javaprogramm. 💻 Dieses findet ihr
+                auf Moodle und müsst es noch zu Ende programmieren. Das Programm besteht aus folgenden Klassen:
+            </p>
+            <table>
+                <tr>
+                    <td>
+                        <tt>Main</tt>
+                    </td>
+                    <td>
+                        Hauptklasse des Programms
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>Vehicle</tt>
+                    </td>
+                    <td>
+                        Die eigentliche Fahrzeugsimulation
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>WGS84</tt>
+                    </td>
+                    <td>
+                        Eine Koordinate auf dem Weg des Fahrzeugs
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>StatusMessage</tt>
+                    </td>
+                    <td>
+                        Datentransferklasse für eine Statusnachricht
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>StatusType</tt>
+                    </td>
+                    <td>
+                        Aufzählung der erlaubten Statusnachrichten
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>SensorMessage</tt>
+                    </td>
+                    <td>
+                        Datentransferklasse für eine Nachricht mit Messwerten
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>Utils</tt>
+                    </td>
+                    <td>
+                        Hilfreiche Konstanten und statische Methoden
+                    </td>
+                </tr>
+            </table>
+            <p>
+                Ihr müsst lediglich noch die Klasse <tt>Main</tt> ausprogrammieren. Alle anderen Klassen sind bereits
+                vollständig enthalten. Folgende Dinge fehlen hier noch:
+            </p>
+            <ol class="spacing">
+                <li>
+                    Die Wegstrecken des Fahrzeugs sind in <a href="https://en.wikipedia.org/wiki/Itinerary_file" target="_blank">ITN-Dateien</a>
+                    gespeichert. In der Methode <tt>parseItnFile()</tt> muss die übergebene Datei ausgewertet und in
+                    eine Liste mit <tt>WGS84</tt>-Objekten umgewandelt werden.
+                </li>
+                <li>
+                    Bevor eine Verbindung zum MQTT-Server hergestellt wird, muss eine LastWill-Nachricht definiert
+                    werden, die bei einem plötzlichen Verbindungsabbruch an die anderen Clients gesendet wird.
+                </li>
+                <li>
+                    Anschließend muss die Verbindung zum MQTT-Server aufgebaut werden und eine Statusmeldung
+                    verschickt werden, die das Fahrzeug am Dashboard anmeldet.
+                </li>
+                <li>
+                    Die aktuellen Sensordaten des Fahrzeugs müssen in einem Hintergrundthread jede Sekunde
+                    von der <tt>Vehicle</tt>-Klasse ausgelesen und als MQTT-Nachricht verschickt werden.
+                </li>
+                <li>
+                    Will der Anwender das Programm beenden, muss die zuvor gespeicherte LastWill-Nachricht
+                    manuell versendet werden, da dies nur bei einem Verbindungsabbruch automatisch geschieht.
+                    Durch die Nachricht wird das Fahrzeug vom Dashboard abgemeldet.
+                </li>
+                <li>
+                    Anschließend müssen die Verbindung getrennt und alle Threads beendet werden.
+                </li>
+            </ol>
+
+            <h3>Web-Dashboard mit Kartenansicht</h3>
+            <p>
+                Natürlich macht eine Anwendung wie diese nur Sinn, wenn die gesammelten Daten entweder aufgezeichnet
+                oder wenigstens anschaulich dargestellt werden. Aus diesem Grund kommt die Anwendung mit einem fast
+                fertigen webbasierten Dashboard, dass die aktuellen Fahrzeugdaten sowie die Position aller Fahrzeuge
+                auf einer Karte zeigt. 🗺️ Um sie zu vervollständigen müsst ihr noch folgende Dinge tun:
+            </p>
+            <ol class="spacing">
+                <li>
+                    In der Methode <tt>connect()</tt> muss einer Verbindung zum MQTT-Server hergestellt werden.
+                </li>
+                <li>
+                    In der Methode <tt>disconnect()</tt> muss die Verbindung wieder getrennt werden.
+                </li>
+                <li>
+                    In der Methode <tt>onMessageArrived()</tt> muss je nach Nachrichtenart
+                    die richtige Methode gerufen werden.
+                </li>
+            </ol>
+            <p>
+                Die ganzen Details zur Darstellung der Karte sind bereits fertig ausprogrammiert. Die Karte nutzt dabei
+                <a href="https://openlayers.org/" target="_blank">OpenLayers</a> für die Darstellung und die freien
+                Kartendaten von <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> für den Inhalt,
+                falls ihr euch dafür interessiert.
+            </p>
+        </div>
+
+        <div class="heading">
+            Hinweise
+        </div>
+        <div class="container flattop">
+            <ul class="spacing">
+                <li>
+                    Auf Moodle findet ihr den
+                    <a href="https://projects.eclipse.org/projects/iot.moquette" target="_blank">Moquette MQTT-Server</a>,
+                    den ihr für diese Aufgabe verwenden könnt. Dabei sind
+                    auf Moodle auch bereits die Fehler in der BAT-Datei zum Starten unter Windows behoben.
+                </li>
+                <li>
+                    <a href="https://www.urbandictionary.com/define.php?term=Use%20the%20Source%2C%20Luke" target="_blank">
+                        Use the source, Luke!
+                    </a>
+                    Im Quellcode stehen viele Kommentare, die euch helfen sollen.
+                </li>
+                <li>
+                    Eine LastWill-Nachricht wird gesendet, wenn die Verbindung mit einem Client unerwartet abbricht.
+                    In der
+                    <a href="http://www.eclipse.org/paho/files/javadoc/org/eclipse/paho/client/mqttv3/MqttConnectOptions.html" target="_blank">
+                        API-Dokumentation von Eclipse Paho
+                    </a>
+                    steht, wie das geht.
+                </li>
+                <li>
+                    Ein periodischer Thread lässt sich am einfachsten mit der Klasse
+                    <a href="https://docs.oracle.com/javase/9/docs/api/java/util/Timer.html" target="_blank">java.util.Timer</a>
+                    realisieren.
+                </li>
+                <li>
+                    Für das Dashboard müsst ihr euch ein wenig in die JavaScript-Version von Eclipse Paho einlesen.
+                    Hier geht es zur <a href="http://www.eclipse.org/paho/files/jsdoc/Paho.MQTT.Client.html" target="_blank">Referenzdokumentation
+                    für das Client-Objekt</a>.
+                </li>
+                <li>
+                    Damit das Dashboard die verschiedenen Nachrichten auseinander halten kann, beinhaltet jede Nachricht ein
+                    Feld namens <tt>type</tt>. Dieses müsst ihr im prüfen, um die richtigen Folgemethoden aufrufen zu können.
+                </li>
+                <li>
+                    <a href="https://kamilfb.github.io/mqtt-spy/" target="_blank">MQTT Spy</a> ist ein nützliches
+                    Werkzeug zum Mitschneiden der MQTT-Nachrichten. Alternativ könnt ihr sie mit folgendem Javacode
+                    auch auf der Konsole ausgeben:
+                    <pre><code class="language-java">byte[] json = sensorData.toJson();
+String topic = Utils.MQTT_TOPIC_NAME + "/" + vehicleId;
+System.out.println(topic + " → " + new String(json, StandardCharsets.UTF_8));</code></pre>
+                </li>
+                <li>
+                    Wenn ihr mit Hilfe von Google Maps eure eigenen Wegstrecken zusammenstellen wollt, müsst ihr daran denken, dass Google
+                    die Koordinaten mit einer Nachkommastelle mehr, als im ITN-Format erlaubt ist, zeigt. Auch ist die Reihenfolge
+                    der Koordinatenwerte in der ITN-Datei vertauscht.
+                </li>
+            </ul>
+        </div>
+
+        <script src="prism.js"></script>
+    </body>
+</html>

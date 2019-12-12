@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Aufgabe: Ticketserver</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Entwicklung von SOAP- und REST-Webservices</h1>
+            <h2>Übungsaufgabe „Ticketserver” 🎵</h2>
+        </div>
+
+        <div class="container">
+            <p>
+                Die Fallbeispiele in „Verteilte Systeme” haben dich inspiriert, dich nach dem Studium mit einer eigenen Anwendung
+                selbstständig zu machen. Als ob es davon nicht schon genug gäbe, willst du ein Webportal zum Kauf und Verkauf
+                von Konzertkarten programmieren. 🎟️ Doch im Gegensatz zur Konkurrenz willst du dich durch effiziente Prozesse und
+                faire Preise abheben. Außerdem planst du auch eine Smartphone-App anzubieten. Aus diesem Grund hast du dich für eine
+                verteilte Architektur mit mehreren Servern entschieden:
+            </p>
+            <table>
+                <tr>
+                    <td style="max-width: 100%; padding-bottom: 0.5em;" colspan="2">
+                        <a href="screenshot1.jpg" target="_blank">
+                            <img src="architektur.jpg" alt="Architekturskizze" style="width: 100%;" />
+                        </a>
+                    </td>
+                </tr>
+               <tr>
+                   <td style="max-width: 50%;">
+                       <a href="screenshot1.jpg" target="_blank">
+                           <img src="screenshot1.jpg" alt="Screenshot 1" style="width: 100%;" />
+                       </a>
+                   </td>
+                   <td style="max-width: 50%;">
+                       <a href="screenshot2.jpg" target="_blank">
+                           <img src="screenshot2.jpg" alt="Screenshot 2" style="width: 100%;" />
+                       </a>
+                   </td>
+               </tr>
+           </table>
+           <p>
+               Leider bist du dir noch nicht sicher, ob du SOAP- oder REST-Webservices nehmen sollst. 🤯 Um die Vor- und Nachteile
+               besser bewerten zu können, hast du deshalb entscheiden, beides als Prototyp auszuprogrammieren. 🛠️
+           </p>
+        </div>
+
+        <div class="container">
+            <h2>Ausprogrammieren des SOAP-Webservices</h2>
+            <ul class="spacing">
+                <li>
+                    Lade dir von Moodle die ZIP-Datei <tt>Ticketserver_Webservices_Aufgabe.zip</tt> herunter und importiere sie in NetBeans.
+                    Das Projekt beinhaltet bereits sämtliche Entity-Klassen sowie sämtliche Enterprise Java Beans. Auch ein Teil des Webservices
+                    zur Anlage von Demodaten ist bereits ausprogrammiert. Alle anderen Klassen sind jedoch nur als leere Hülle angelegt und müssen
+                    von dir noch zu Ende programmiert werden. ⌨️
+                </li>
+                <li>
+                    <p>
+                        Los geht es mit der Klasse <tt>EventSoapWebservice</tt>. Programmiere sie so aus, dass sie folgende Operationen ermöglicht.
+                        Die Klasse <tt>EventBean</tt> bietet dir hierfür bereits fertige Implementierungen, die du einfach aufrufen kannst.
+                    </p>
+                    <table>
+                        <tr>
+                            <td>
+                                🔍
+                            </td>
+                            <td>
+                                Suchen nach Veranstaltungen anhand eines Suchbegriffs
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                👓
+                            </td>
+                            <td>
+                                Suchen einer Veranstaltung anhand ihrer Id
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                📝
+                            </td>
+                            <td>
+                                Anlegen einer neuen Veranstaltung
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                🏗️
+                            </td>
+                            <td>
+                                Aktualisieren einer bereits vorhandenen Veranstaltung
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                🗑️
+                            </td>
+                            <td>
+                                Löschen einer Veranstaltung
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <p>
+                        Programmiere danach nach demselben Schema die Klasse <tt>TicketSoapWebservice</tt> fertig. Auch hier
+                        kannst du auf die <tt>TicketBean</tt> zugreifen, musst über den Webservice jedoch nur folgende Operationen
+                        anbieten:
+                    </p>
+                    <table>
+                        <tr>
+                            <td>
+                                💸
+                            </td>
+                            <td>
+                                Kaufen von Tickets zu einer Veranstaltung
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                👓
+                            </td>
+                            <td>
+                                Suchen eines Tickets anhand seiner Id
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    Teste anschließend den kompletten Webservice mit SoapUI. Rufe dabei jede Operation mit unterschiedlichen
+                    Testdaten auf, um sicherzugehen, dass auch wirklich alles funktioniert. Probiere zum Beispiel aus, Karten für
+                    eine Veranstaltung zu kaufen, die es nicht gibt oder mehr Karten zu kaufen, als noch verfügbar sind. Versuche
+                    auch, eine Veranstaltung zu löschen, nachdem du Karten dafür gekauft hast und probiere dann, die gekauften Karten
+                    über den Webservice abzurufen. Verhält sich der Webserivce in diesem Fall wirklich so, wie du es erwartet hättest?
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2>Ausprogrammieren des REST-Webservices</h2>
+            <ul class="spacing">
+                <li>
+                    Dasselbe, was wir eben mit SOAP programmiert haben, wollen wir nun als REST-Webservice realisieren. 🏇 Öffne daher
+                    die Klasse <tt>EventRestWebservice</tt> und kopiere alle Methoden des <tt>EventSoapWebservice</tt> hier hinein.
+                    Anschließend passe die Klasse so an, dass die Methoden per REST aufrufbar sind. Welche Methode wie aufgerufen
+                    werden soll, verrät dir dabei die HTML-Startseite der Webanwendung. 👍
+                </li>
+                <li>
+                    An dieser Stelle sollte die Klasse <tt>TicketRestWebservice</tt> nun ganz einfach zu realisieren sein. Kopiere
+                    auch hier die Inhalte der Klasse <tt>TicketSoapWebservice</tt> hinein und passe sie entsprechend der Programmierung
+                    von REST-Webservices sowie den Angaben auf der HTML-Startseite an.
+                </li>
+                <li>
+                    Rufe anschließend die automatisch generierte API-Dokumentation des Webservices auf und teste, ob alle Methoden
+                    richtig funktionieren. Versuche auch hier, alle relevanten Fälle durchzuspielen und ggf. Fehler zu provozieren.
+                    Im Idealfall sollte sich der REST-Webservice 🐇 jeweils genau wie der SOAP-Webservice 🐘 verhalten.
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2>Bonusaufgabe</h2>
+            <p>
+                Programmiere für beide Webservices einen kleinen Java-Client, der es ermöglicht, Veranstaltungen zu suchen. Es reicht
+                dabei, wenn es sich um ein einfaches Kommandozeilenprogramm handelt, das nur diese eine Funktion auf dem Server aufrufen
+                kann. Das Programm soll den Anwender daher einfach nach der Sucheingabe fragen und alle gefundenen Ergebnisse ausgeben.
+            </p>
+        </div>
+    </body>
+</html>

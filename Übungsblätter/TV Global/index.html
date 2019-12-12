@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 SOAP-Webservices: TV Global</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="heading">
+            <span class="h1">
+                SOAP-Webservices
+            </span>
+            <span class="h2">
+                TV Global
+            </span>
+        </div>
+
+        <div class="container flattop">
+            <p>
+                Juhu, endlich Feierabend. Jetzt schnell auf die Couch 🛋️, Füße hochlegen und den Rest des Abends
+                vor dem Fernseher verbringen. 📺 Doch was soll man sich anschauen? 🤔 Vergessen wir für einen Moment,
+                dass es inzwischen ja auch Netflix, Amazon Video und Youtube gibt und fragen uns:
+            </p>
+            <img src="was-laeuft.png" alt="Was läuft den gerade so im Fernsehen?" style="display: block; width: 100%;" />
+            <p>
+                Ach wie praktisch wäre jetzt eine App, die uns das aktuelle Fernsehprogramm aller Fernsehsender
+                anzeigen könnte. Diese App (bzw. nur den Serverteil und den dazugehörigen SOAP-Webservice) wollen
+                wir daher nun programmieren.
+            </p>
+        </div>
+
+        <div class="heading">
+            Datenmodell und Enterprise Java Beans
+        </div>
+        <div class="container flattop">
+            <p>
+                Damit es nicht zu aufwändig wird, fangen wir mit einem ganz einfachen Datenmodell an. Es gibt
+                lediglich <b>Fernsehsender</b> und von ihnen gezeigte <b>Sendungen</b>:
+            </p>
+            <img src="datenmodell.svg" alt="Skizze des Datenmodells" style="display: block; width: 100%;" />
+            <p>
+                Die Felder <b>Code</b> und <b>Name</b> eines Senders sind dabei so zu verstehen, dass anstelle
+                einer fortlaufenden ID ein frei vergebbares Buchstabenkürzel als Schlüsselfeld verwendet wird:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>ARD</td>
+                    <td>Arbeitsgemeinschaft Rundfunk Deutschland</td>
+                </tr>
+                <tr>
+                    <td>ZDF</td>
+                    <td>Zweites Deutsches Fernsehen</td>
+                </tr>
+                <tr>
+                    <td>SWR</td>
+                    <td>Südwestrundfunk</td>
+                </tr>
+                <tr>
+                    <td>PRO7</td>
+                    <td>ProSieben</td>
+                </tr>
+                <tr>
+                    <td>Kabel1</td>
+                    <td>Kabel eins</td>
+                </tr>
+                <tr>
+                    <td colspan="2">…</td>
+                </tr>
+            </table>
+            <p class="aufgabe">
+                Lege ein neues Java-Webprojekt an und definiere darin die oben gezeigten Persistence Entities, sowie je
+                Persistence Entity eine Stateless Session Bean mit den üblichen Methoden zum Lesen, Schreiben und Löschen
+                von Datensätzen.¹
+            </p>
+            <p>
+                <small>
+                    ¹ Tipp: Mit der abstrakten <tt>EntityBean</tt> aus den
+                    <a href="https://www.wpvs.de/vertsys/2-javaee/jpa/" target="_blank">JPA-Folien</a>
+                    geht es schneller.
+                </small>
+                🤓
+            </p>
+            <h3>Hinweis</h3>
+            <p>
+                Die Felder für Start und Ende einer Sendung kannst du wie folgt anlegen. Beide Felder
+                beinhalten dabei sowohl ein Datum als auch eine Uhrzeit:
+            </p>
+<pre><code>import java.util.Date;
+…
+
+@Temporal(TemporalType.TIMESTAMP)
+private Date startTime = new Date();
+
+@Temporal(TemporalType.TIMESTAMP)
+private Date endTime = new Date();
+</code></pre>
+        </div>
+
+        <div class="heading">
+            Der eigentliche Webservice
+        </div>
+        <div class="container flattop">
+            <p>
+                Damit ist das Fundament gelegt. 🏚️ Weiter geht es mit einer neuen Klasse für den Webservice. Programmiere daher auf
+                Grundlage der EJBs einen SOAP-Webservice, der folgende Funktionen beinhaltet:
+            </p>
+            <ol>
+                <li>
+                    Anlegen eines neuen Fernsehsenders
+                </li>
+                <li>
+                    Anlegen einer neuen Sendung
+                </li>
+                <li>
+                    Auslesen aller Fernsehsender (ohne ihre Sendungen!)
+                </li>
+                <li>
+                    Auslesen aller Sendungen, die in einer bestimmten Zeit beginnen
+                </li>
+            </ol>
+            <p>
+                Die Javamethoden hierfür sollten ungefähr so aussehen:
+            </p>
+<pre><code>Sender senderAnlegen(Sender sender);
+Sendung sendungAnlegen(Sendung sendung);
+List&lt;Sender&gt; alleSenderAuslesen();
+List&lt;Sendung&gt; sendungenSuchen(Date startVon, Date startBis);
+</code></pre>
+            <p class="aufgabe">
+                Teste den Webservie ausgiebig in SoapUI, bevor du weiter machst.
+            </p>
+
+            <h3>Hinweis</h3>
+            <p>
+                Datum und Uhrzeit musst du als <tt>2018-03-12T20:15:00</tt> schicken, wenn du
+                den 12.03.2018, 20:15 Uhr meinst.
+            </p>
+        </div>
+
+        <div class="heading">
+            Eine kleine Client-Anwendung
+        </div>
+        <div class="container flattop">
+            Und nun, last but not least, wollen wir den Webservice natürlich auch aufrufen. Programmiere daher eine
+            Java-Konsolenanwendung, die es ermöglicht, nach den Sendungen eines Zeitraums zu suchen. Folgende Ausgabe
+            soll das Programm erzeugen. Mit diesem tollen Konsolenprogramm (natürlich absolut Smartphone-Tauglich 🤕)
+            kann der Fernsehabend dann kommen.
+
+<pre>
+████████╗██╗   ██╗     ██████╗ ██╗      ██████╗ ██████╗  █████╗ ██╗
+╚══██╔══╝██║   ██║    ██╔════╝ ██║     ██╔═══██╗██╔══██╗██╔══██╗██║
+   ██║   ██║   ██║    ██║  ███╗██║     ██║   ██║██████╔╝███████║██║
+   ██║   ╚██╗ ██╔╝    ██║   ██║██║     ██║   ██║██╔══██╗██╔══██║██║
+   ██║    ╚████╔╝     ╚██████╔╝███████╗╚██████╔╝██████╔╝██║  ██║███████╗
+   ╚═╝     ╚═══╝       ╚═════╝ ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+
+=========
+Hauptmenü
+=========
+
+  [S] Sendungen suchen
+  [E] Ende
+
+Deine Auswahl: S
+
+================
+Sendungen suchen
+================
+
+Startdatum von  (yyyy-mm-dd)  : 2018-03-12
+Startzeit von   (hh:mm:ss)    : 20:15:00
+Startdatum bis  (yyyy-mm-dd)  : 2018-03-12
+Startzeit bis   (hh:mm:ss)    : 22:00:00
+
+Gefundene Sendungen:
+
+  Sender:       ARD
+  Sendung:      Der blaue Planet
+  Beschreibung: Dokumentation (D 2017) - Auf hoher See
+  Startzeit:    12.03.2018, 20:15
+  Endezeit:     12.03.2018, 21:00
+
+  Sender:       ZDF
+  Sendung:      Neben der Spur - Sag, es tut dir leid
+  Beschreibung: Thriller (D 2018)
+  Startzeit:    12.03.2018, 20:15
+  Endezeit:     12.03.2018, 21:45
+
+=========
+Hauptmenü
+=========
+
+  [S] Sendungen suchen
+  [E] Ende
+
+Deine Auswahl: E
+
+Auf wiedersehen!
+</pre>
+
+            <h3>Hinweise</h3>
+            <p>
+                Im Hauptmenü sowie bei der Suche nach Sendungen muss das Programm logischweise
+                anhalten und die Eingabe des Benutzers abwarten. Folgenden Code kannst du hierfür
+                verwenden:
+            </p>
+<pre><code>BufferedReader fromKeyboard = new BufferedReader(new InputStreamReader(System.in);
+String input = fromKeyboard.readLine();
+</code></pre>
+            <p>
+                Das Datum/Uhrzeit-Objekt für den Aufruf des Webservices kannst du wie folgt
+                erzeugen:
+            </p>
+<pre><code>DatatypeFactory dtf = DatatypeFactory.newInstance();
+XMLGregorianCalendar startTimeFrom = dtf.newXMLGregorianCalendar(
+        eingegebenesDatum + "T" + eingegebeneUhrzeit);
+</code></pre>
+            <p>
+                Ein vom Webservice empfangenes Datum/Uhrzeit-Objekt kannst du wie folgt für
+                die Ausgabe formiatieren:
+            </p>
+<pre><code>SimpleDateFormat fmt = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
+Date date = empfangenesDatum.toGregorianCalendar().getTime();
+System.out.println("Datum und Uhrzeit in schön: " + fmt.format(date));
+</code></pre>
+        </div>
+    </body>
+</html>

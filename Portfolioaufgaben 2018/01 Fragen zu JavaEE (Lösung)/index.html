@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Musterlösung zur Benotete Hausaufgabe zur Java Enterprise Edition</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Musterlösung zur benoteten Hausaufgabe</h1>
+            <h2>Java Enterprise Edition</h2>
+        </div>
+
+        <div class="container">
+            <!-- Allgemeine Fragen -->
+            <h3>1. Allgemeine Fragen</h3>
+
+            <p>
+                a) Selbstgeschriebene Klassen und JSPs zur Auflistung der vorhandenen Aufgaben (1P):
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Klasse / JSP
+                        </th>
+                        <th>
+                            Aufgabe
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <tt>TaskListServlet</tt>
+                    </td>
+                    <td>
+                        Servlet, das die Suche und Anzeige steuert
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>CategoryBean</tt>
+                    </td>
+                    <td>
+                        EJB zur Verwaltung der Kategorien
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>TaskBean</tt>
+                    </td>
+                    <td>
+                        EJB zur Verwaltung der Aufgaben
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>Category</tt>
+                    </td>
+                    <td>
+                        Persistence Entity für Kategorien
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>Task</tt>
+                    </td>
+                    <td>
+                        Persistence Entity für Aufgaben
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>TaskStatus</tt>
+                    </td>
+                    <td>
+                        Aufzählung der Aufgabenstati (Offen, In arbeit, …)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>task_list.jsp</tt>
+                    </td>
+                    <td>
+                        JSP-Datei zur Anzeige der Liste
+                    </td>
+                </tr>
+            </table>
+
+            <p>
+                b) Änderungen an der Methode <tt>….ejb.TaskBean.search()</tt>, um den Eigentümer als weiteres
+                Suchkriterium einzufügen (2P):
+            </p>
+            <ol class="spacing">
+                <li>
+                    Es müsste ein weiterer Parameter <tt>User owner</tt> hinzugefügt werden.
+                </li>
+                <li>
+                    Kurz vor dem Ende müsste folgender Quellcode eingebaut werden:
+
+<pre><code>if (owner != null) {
+    query.where(cb.equal(from.get("owner"), owner));
+}</code></pre>
+                </li>
+            </ol>
+
+            <p>
+                c) Schritte in <tt>….web.TaskEditServlet</tt> beim Speichern eines Datensatzes (2P):
+            </p>
+            <ol class="spacing">
+                <li>
+                    Zunächst wird in <tt>doPost()</tt> gerpfüt, ob im Parameter <tt>action</tt> der Wert <tt>save</tt>
+                    oder <tt>delete</tt> mitgegeben wurde. Je nach Wert wird dann die Methode <tt>saveTask()</tt> oder
+                    <tt>deleteTask</tt> aufgerufen.
+                </li>
+                <li>
+                    In <tt>saveTask()</tt> werden dann zunächst alle Formularfelder ausgelesen und in Stringfelder geschrieben.
+                </li>
+                <li>
+                    Danach wird <tt>getRequestedTask()</tt> aufgerufen, um anhand der URL entweder das zu bearbeitende
+                    <tt>Task</tt>-Objekt auszulesen oder eine neue Objektinstanz zu erzeugen.
+                </li>
+                <li>
+                    Anschließend werden die eingegebenen Werte an das ermittelte <tt>Task</tt>-Objekt übergeben.
+                    Kommt es dabei zu Fehlern, wie zum Beispiel dass das Datum oder die Uhrzeit nicht interpretiert
+                    werden können, werden diese in die Fehlerliste aufgenommen.
+                </li>
+                <li>
+                    Das <tt>Task</tt>-Objekt wird mit der <tt>ValidationBean</tt> überprüft.
+                </li>
+                <li>
+                    Falls keine Fehler gefunden wurden, wird der Datensatz gespeichert und der Anwender zur
+                    Startseite weitergeleitet.
+                </li>
+                <li>
+                    Falls es Fehler gab, werden die bisherigen Formulareingaben und gefundenen Fehler in der HTTP-Session
+                    abgelegt und das Erfassungsformular erneut angezeigt.
+                </li>
+            </ol>
+
+            <!-- Benutzerauthentifizierung -->
+            <h3>2. Benutzerauthentifizierung</h3>
+
+            <p>
+                a) Konfiguration in der Datei <tt>Web Pages\WEB-INF\web.xml</tt> (2P):
+            </p>
+            <ul class="spacing">
+                <li>
+                    <tt>&lt;security-constraint&gt;</tt>: Hier wird definiert, dass alle URLs, die mit <tt>/app/*</tt>
+                    beginnen nur von Benutzern aufgerufen werden können, die die Rolle <tt>todo-app-user</tt> besitzen.
+                    Der Aufruf muss zusätzlich über eine gesicherte HTTPS-Verbindung erfolgen.
+                </li>
+                <li>
+                    <tt>&lt;security-role&gt;</tt>: Hier wird die Rolle <tt>todo-app-user</tt> definiert.
+                </li>
+                <li>
+                    <tt>&lt;login-config&gt;</tt>: Hier wird festgelegt, dass die Authentifizierung über ein Login-Formular
+                    erfolgt und es werden die JSP-Dateien für das Formular und die Fehlerseite hinterlegt.
+                </li>
+            </ul>
+
+            <p>
+                b) Die Tabelle mit den Benutzerdaten wird in der Serverkonfiguration hinterlegt. Es handelt sich dabei
+                um die Schritte, die am Anfang des Aufgabenblatts manuell auszuführen sind. (1P)
+            </p>
+
+            <p>
+                c) Zusätzlicher Code zur Definition einer weiteren Benutzerrolle (1P):
+            </p>
+<pre><code>&lt;security-role&gt;
+    &lt;description&gt;
+        Beschreibung …
+    &lt;/description&gt;
+    &lt;role-name&gt;name-der-rolle&lt;/role-name&gt;
+&lt;/security-role&gt;</code></pre>
+            <p>
+                d) Zur Prüfung der neuen Rolle kann die Annotation <tt>@RolesAllowed("name-der-rolle")</tt> verwendet werden. (1P)
+            </p>
+
+            <!-- Bean Validation -->
+            <h3>3. Bean Validation</h3>
+
+            <p>
+                a) Verwendete Annotationen zur Beanvalidierung (1P):
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Annotation
+                        </th>
+                        <th>
+                            Aufgabe
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <tt>@NotNull</tt>
+                    </td>
+                    <td>
+                        Stellt sicher, dass der Wert niemals <tt>null</tt> sein darf.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <tt>@Size</tt>
+                    </td>
+                    <td>
+                        Legt die Mindest- und Maximallänge eines Wertes fest.
+                    </td>
+                </tr>
+            </table>
+
+            <p>
+                b) Weitere, nicht im Quellcode verwendete Annotationen:
+                <a href="https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/package-summary.html" target="_blank">Siehe hier</a>
+                (2P)
+            </p>
+
+            <p>
+                c) Mögliche Vorteile aus der Nutzung von Bean Validation, auch in Hinblick auf unterschiedliche
+                Clients der Anwendung (2P):
+            </p>
+            <ol class="spacing">
+                <li>
+                    Es muss weniger Quellcode geschrieben werden, die meisten <tt>if</tt>-Abfragen können durch
+                    einfache Annotationen ersetzt werden.
+                </li>
+                <li>
+                    Die Annotationen werden direkt bei den Entity-Klassen hinzugefügt, da es um die Eigenschaften
+                    ihrer Felder geht. Es finden kaum noch manuelle Prüfungen in den Servlets statt.
+                </li>
+                <li>
+                    Dadurch müssen die Prüfungen auch nicht für jeden Client aufs Neue programmiert werden, was
+                    beim alten Vorgehen der Fall wäre, da alle Clients zwar die EJBs oft aber nicht die Servlets
+                    der Anwendung nutzen können.
+                </li>
+            </ol>
+        </div>
+    </body>
+</html>

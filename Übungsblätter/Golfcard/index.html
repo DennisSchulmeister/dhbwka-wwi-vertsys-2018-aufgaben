@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Aufgabe: Golfcard</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Entwicklung einer MVC-Webanwendung</h1>
+            <h2>Übungsaufgabe „Golfcard” ⛳</h2>
+        </div>
+
+        <div class="container">
+            <p>
+                Ein schottisches Sprichwort besagt „Beim Golf geht es nicht um Leben und Tod - es geht um mehr.”. ☠️ Genauer
+                gesagt geht es um die Anzahl Schläge, die man braucht, um einen Golfball während eines Spiels in 18 verschiedene
+                Löcher einzulochen. 🏌️ Deshalb benötigt jede*r Golfspieler*in eine Scorekarte 💯, in welche die Anzahl eingetragen
+                werden kann. Klassischerweise macht man das auf vorgedrucktem Papier. Eine moderne Onlineversion, die man einfach
+                auf dem Smartphone ausfüllen könnte, wäre aber sicher auch nicht schlecht. Die folgenden Screenshots zeigen,
+                wie so eine Anwendung aussehen könnte:
+            </p>
+             <table>
+                <tr>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot1.jpg" target="_blank">
+                            <img src="screenshot1.jpg" alt="Screenshot 1" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot2.jpg" target="_blank">
+                            <img src="screenshot2.jpg" alt="Screenshot 2" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                Wie du siehst, ist eine Scorekarte nicht sehr kompliziert aufgebaut. Es gibt ein Datum, eine Uhrzeit sowie den
+                Namen des Goflplatzes, auf dem man spielt. Zusätzlich gibt es den Wert „Par”, der angibt, wie viele Schläge ein
+                geübter Spieler auf diesem Platz maximal je Loch brauchen würde. Und dann gibt es je Loch die tatsächlich benötigte
+                Anzahl Schläge. Diese lässt sich aufsummieren und nach der
+                <a href="https://de.wikipedia.org/wiki/Stableford" target="_blank">Stableford-Methode</a>
+                in eine Punktzahl umrechnen.
+            </p>
+        </div>
+
+        <div class="container">
+            <h2>Aufgabenstellung</h2>
+            <ol class="spacing">
+                <li>
+                    Lade dir von Moodle die ZIP-Datei <tt>Golfcard_Aufgabe.zip</tt> herunter und importiere sie in NetBeans.
+                </li>
+                <li>
+                    Programmiere die Methode <tt>doGet()</tt> der Klasse <tt>IndexServlet</tt> aus.
+                </li>
+                <li>
+                    Programmiere die Übersichtsliste in der Datei <tt>WEB-INF/list.jsp aus</tt>.
+                </li>
+                <li>
+                    Programmiere die Methode <tt>doGet()</tt> der Klasse <tt>DetailsServlet</tt> aus.
+                </li>
+                <li>
+                    Programmiere das Formular zur Anzeige einer Scorekarte in der Datei <tt>WEB-INF/form.jsp aus</tt>.
+                </li>
+                <li>
+                    Programmiere die Methode <tt>doPost()</tt> der Klasse <tt>DetailsServlet</tt> aus.
+                </li>
+                <li>
+                    Programmiere die Methoden <tt>getSumStrokes()</tt> und <tt>getStableford()</tt> in der Klasse <tt>Scorecard</tt> aus.
+                </li>
+            </ol>
+            <p>
+                Die anzupassenden Stellen sind mit „TODO” und einer kurzen Erklärung gekennzeichnet. Das Grundgerüst der Anwendung
+                steht bereits. Ebenso das Datenmodell und eine dazu passende Enterprise Java Bean. Alle anderen Sachen musst du
+                allerdings selbst ausprogrammieren. Diesmal ist relativ wenig vorgegeben. 🤨
+            </p>
+        </div>
+
+        <div class="container">
+            <h2>Hinweis zur Berechnung der Stableford-Bewertung</h2>
+            <p>
+                Die Stableford-Bewertung eines Spiels lässt sich ganz einfach ausrechnen. Du musst einfach in einer Schleife
+                über alle Löcher gehen, bei denen mindestens ein Abschlag eingetragen wurde (Anzahl Schläge größer Null).
+                Dann vergleichst du die eingetragene Zahl mit dem Par-Wert des Golfplatzes. Je nachdem, wie weit der eingetragene
+                Wert unter oder über dem Par liegt, werden unterschiedlich viele Punkte gutgeschrieben:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Anzahl Schläge eines Lochs
+                        </th>
+                        <th>
+                            Zu wertende Stableford-Punkte
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        Drei unter Par
+                    </td>
+                    <td>
+                        5
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Zwei unter Par
+                    </td>
+                    <td>
+                        4
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Eins unter Par
+                    </td>
+                    <td>
+                        3
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Genau Par
+                    </td>
+                    <td>
+                        2
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Eins über Par
+                    </td>
+                    <td>
+                        1
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Zwei über Par oder schlechter
+                    </td>
+                    <td>
+                        0
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container">
+            <h2>Bonusaufgabe: Codegolf</h2>
+            <p>
+                Vergleiche deine Lösung mit der Musterlösung sowie ein paar Kommilitonen. Wer schafft es, die Anwendung mit den
+                wenigsten Zeilen Code (ohne Leerzeilen und Kommentare) aber dennoch fehlerfrei zu realisieren? 💻
+            </p>
+        </div>
+    </body>
+</html>

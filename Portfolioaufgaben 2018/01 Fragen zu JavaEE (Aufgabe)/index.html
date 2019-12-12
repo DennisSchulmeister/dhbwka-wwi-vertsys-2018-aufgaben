@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Benotete Hausaufgabe zur Java Enterprise Edition</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Benotete Hausaufgabe</h1>
+            <h2>Java Enterprise Edition</h2>
+        </div>
+
+        <div class="container">
+            <p>
+                Diese Aufgabe soll dir helfen, dich auf die praktische Programmieraufgabe nächste Stunde vorzubereiten.
+                Gleichzeitig solle sie natürlich auch ein wenig deinen Lernerfolg prüfen und feststellen, wie gut du
+                dich in Java&nbsp;EE zurechtfindest. Doch keine Angst, auch wenn sich viele Fragen auf Themen beziehen,
+                die wir nicht behandelt haben, sind sie alle mit einem geübten Blick auf den Quellcode und etwas Nachdenken
+                gut lösbar. 😇
+            </p>
+            <p>
+                Die Anwendung, um die es hier geht, ist eine kleine Aufgabenliste. Nicht groß, aber immerhin
+                mit Benutzerverwaltung und der Möglichkeit, die Aufgaben in beliebigen Kategorien zu ordnen.
+                Die nachfolgenden Bilder zeigen die Anwendung.
+            </p>
+             <table>
+                <tr>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot1.png" target="_blank">
+                            <img src="screenshot1.png" alt="Screenshot 1" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot2.png" target="_blank">
+                            <img src="screenshot2.png" alt="Screenshot 2" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot3.png" target="_blank">
+                            <img src="screenshot3.png" alt="Screenshot 3" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                    <td style="max-width: 50%;">
+                        <a href="screenshot4.png" target="_blank">
+                            <img src="screenshot4.png" alt="Screenshot 4" style="max-width: 100%;" />
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container">
+            <p>
+                Bevor du dich auf die Fragen und in den Quellcode stürzt, 🤸 solltest du die Anwendung erst zum Laufen bringen.
+                Denn aufgrund der Benutzerverwaltung sind hierfür ein paar manuelle Schritte erforderlich. Importiere daher
+                das Projekt „jTodo” in Netbeans und führe danach folgende Schritte aus:
+            </p>
+
+            <h3>Start der Admin-Konsole</h3>
+            <ol>
+                <li>
+                    Links in Netbeans den Reiter „Services” öffnen
+                </li>
+                <li>
+                    Rechtsklick auf „Glassfish Server”
+                </li>
+                <li>
+                    Menüpunkt „View Domain Admin Console” anklicken
+                </li>
+            </ol>
+
+            <h3>Konfiguration in der Admin-Konsole</h3>
+            <ol>
+                <li>
+                    Links „Configurations” → „server-config” → „Security” aufklappen
+                </li>
+                <li>
+                    Menüpunkt „Realms” anklicken
+                </li>
+                <li>
+                    Oberhalb der Tabelle auf „New” klicken
+                </li>
+                <li>
+                    Folgende Werte eingeben (exakte Schreibweise beachten!)
+
+                    <table style="margin: 1em 0 1em 0">
+                        <tr>
+                            <td class="label">Name:</td>
+                            <td>todo-app</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Class Name:</td>
+                            <td>….JDBCRealm</td>
+                        </tr>
+                        <tr>
+                            <td class="label">JAAS Context:</td>
+                            <td>jdbcRealm</td>
+                        </tr>
+                        <tr>
+                            <td class="label">JNDI:</td>
+                            <td>jdbc/__default</td>
+                        </tr>
+                        <tr>
+                            <td class="label">User Table:</td>
+                            <td>jtodo.jtodo_user</td>
+                        </tr>
+                        <tr>
+                            <td class="label">User Name Column:</td>
+                            <td>username</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Password Column:</td>
+                            <td>password_hash</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Group Table:</td>
+                            <td>jtodo.jtodo_user_group</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Group Table User Name Column:</td>
+                            <td>username</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Group Name Column:</td>
+                            <td>groupname</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Passwort Encryption Algorithm:</td>
+                            <td>SHA-256</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Assign Groups:</td>
+                            <td>todo-app-user</td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    Oben rechts auf "OK" klicken zum Sichern
+                </li>
+            </ol>
+
+            <h3>Ausprobieren</h3>
+            <ol>
+                <li>
+                    Webanwendung starten
+                </li>
+                <li>
+                    Neuen Benutzer registrieren
+                </li>
+                <li>
+                    Login und Logout mit dem neuen Benutzer
+                </li>
+            </ol>
+        </div>
+
+        <div class="container">
+            <h2>Fragen zur Anwendung</h2>
+            <p>
+                Beantworte die folgenden Fragen zu der Webanwendung. Die Antworten müssen bis zum mitgeteilten
+                Zeitpunkt als PDF-Dokument 📑 in Moodle eingereicht werden. Alle Fragen müssen von dir selbst
+                ohne fremde Zuhilfenahme beantwortet werden, da es sich um eine benotete Einzelleistung handelt.
+                Jede Aufgabe wird mit 5 Punkten bewertet. Maximal können 15 Punkte erreicht werden. Fasse dich
+                in den Antworten kurz.
+            </p>
+
+            <h3>1. Allgemeine Fragen</h3>
+            <ol class="spacing">
+                <li>
+                    Benenne alle selbstgeschriebenen Klassen und JSP-Dateien, die nach dem Login verwendet werden, um
+                    die vorhandenen Aufgaben aufzulisten und nenne jeweils kurz ihre Funktion. (1P)
+                </li>
+                <li>
+                    Schaue dir die Methode <tt>….ejb.TaskBean.search()</tt> an, in der die Suche nach Aufgaben implementiert
+                    ist. Welche Änderungen müssten an der Methode vorgenommen werden, um den Eigentümer einer Aufgabe als
+                    weiteres Suchkriterium hinzuzufügen? (2P)
+                </li>
+                <li>
+                    Schaue dir die Klasse <tt>….web.TaskEditServlet</tt> für die Anlage und Bearbeitung von Aufgaben an.
+                    Beschreibe die einzelnen Schritte, die das Servlet beim Speichern eines Datensatzes durchläuft. (2P)
+                </li>
+            </ol>
+
+            <h3>2. Benutzerauthentifizierung</h3>
+            <ol class="spacing">
+                <li>
+                    Schaue dir den Inhalt der Datei <tt>Web Pages\WEB-INF\web.xml</tt> an und beschreibe in eigenen Worten,
+                    wie die Benutzerauthentifizierung dort konfiguriert wurde. (2P)
+                </li>
+                <li>
+                    Woher weiß der Applikationsserver, gegen welche Tabelle er die Anmeldedaten prüfen muss? (1P)
+                </li>
+                <li>
+                    Welchen Code müsste man in die <tt>web.xml</tt> einfügen, um eine zweite Rolle zu definieren?¹ (1P)
+                </li>
+                <li>
+                    Mit welcher Annotation könnte die neue Benutzerrolle in den EJBs geprüft werden? (1P)
+                </li>
+            </ol>
+            <p>
+                <small>
+                    ¹ Nur die Definition der Rolle ohne Zuweisung zu einem URL-Bereich. Ebenso kannst du die Datei
+                    <tt>glassfish-web.xml</tt> außen vor lassen, in der unter „Security” noch eine neues „Security
+                    Role Mapping“ angelegt werden müsste, damit es wirklich funktioniert.
+                </small>
+            </p>
+
+            <h3>3. Bean Validation</h3>
+            <p>
+                Zur Überprüfung der Benutzereingaben werden nur teilweise manuell ausprogrammierte <tt>if</tt>-Anweisungen im
+                Quellcode verwendet. Die meisten Prüfungen werden durch zusätzliche Annotationen in den Entity-Klassen sowie
+                einer kleinen Hilfsmethode in der Klasse <tt>….ejb.ValidationBean</tt> vorgenommen. Es handelt sich dabei um
+                die <a href="http://beanvalidation.org/" target="_blank">Bean Validation</a> API von Java&nbsp;EE.
+            </p>
+            <ol class="spacing">
+                <li>
+                    Für welche Prüfungen wird die Bean Validation API in den Entity-Klassen verwendet? Benenne die Annotationen
+                    und ihre jeweilige Funktion. (1P)
+                </li>
+                <li>
+                    Schaue dir die <a href="https://javaee.github.io/javaee-spec/javadocs/" target="_blank">Java EE API-Dokumentation</a>
+                    an und finde zwei weitere Annotationen zur Beanvalidierung. (2P)
+                </li>
+                <li>
+                    Überlege dir zwei Vorteile, die Bean Validation gegenüber unserem bisherigen Vorgehen bieten könnte. Gehe dabei
+                    auch davon aus, dass wir möglicherweiße in Zukunft einen Smartphone-Client für die Anwendung schreiben wollen, der
+                    zwar auf die EJBs nicht aber auf die Servlets und JSPs zugreifen kann. (2P)
+                </li>
+            </ol>
+        </div>
+    </body>
+</html>

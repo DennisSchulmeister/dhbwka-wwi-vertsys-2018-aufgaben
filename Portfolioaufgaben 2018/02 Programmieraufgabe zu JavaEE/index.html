@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Portfolioaufgabe zur Java Enterprise Edition</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="heading">
+            <!--
+            <h1>Portfolioaufgabe</h1>
+            <h2>Java Enterprise Edition</h2>
+            -->
+            <span class="h1">
+                Portfolioaufgabe
+            </span>
+            <span class="h2">
+                Java Enterprise Edition
+            </span>
+        </div>
+
+        <div class="container flattop">
+            <p>
+                Wow! Jetzt haben wir so viele Dinge rund um die Java Enterprise Edition gesehen, dass
+                es langsam Zeit wird, sich anderen Themen zuzuwenden. 🙂 Doch zuvor dürft ihr noch einmal
+                eine komplette Webanwendung entwickeln, mit allem was dazu gehört: Persistence Entities,
+                Benutzerverwaltung, Enterprise Java Beans, Servlets und Java Server Pages. 🎭 Als Grundlage
+                verwenden wir dafür die jTodo-Anwendung aus der benoteten Hausaufgabe und bauen sie so um,
+                dass sie keine Aufgaben mehr verwaltet, sondern Verkaufsangebote und Gesuche. 💰
+            </p>
+            <p>
+                Folgende Anforderungen soll die neue Anwendung erfüllen:
+            </p>
+
+            <h3>Allgemeines</h3>
+            <ul>
+                <li>
+                    Natürlich heißt die Anwendung nicht mehr jTodo, sondern irgendwie anders. 🙂
+                </li>
+                <li>
+                    Die Umbennung soll den Namen des Projekts, die Javapakete, die Datenbanktabellen,
+                    das Datenbankschema in der Datei <tt>Other Sources/META-INF/orm.xml</tt> sowie den Namen der
+                    Benutzerrolle in der <tt>Web Pages/WEB-INF/web.xml</tt> umfassen.
+                </li>
+                <li>
+                    Das Hintergrundbild solltet ihr auch wechseln. 🏖️
+                </li>
+            </ul>
+
+            <h3>Benutzerprofil</h3>
+            <ul>
+                <li>
+                    Zu jedem Benutzer sollen folgende Zusatzwerte gespeichert werden: Name, Anschrift, PLZ, Ort, Telefon, E-Mail
+                </li>
+                <li>
+                    Diese Daten sollen bereits bei der Registrierung eingegeben werden.
+                </li>
+                <li>
+                    Zusätzlich soll es für angemeldete Benutzer die Möglichkeit geben, die eigenen Daten zu bearbeiten.
+                </li>
+                <li>
+                    Die in den Screenshots dargestellte Möglichkeit, sein Passwort zu ändern, müsst ihr nicht realisieren.
+                </li>
+            </ul>
+
+            <h3>Angebote und Gesuche</h3>
+            <ul>
+                <li>
+                    Anstelle von Aufgaben sollen Verkaufsanzeigen verwaltet werden.
+                </li>
+                <li>
+                    Folgende Felder soll eine Anzeige beinhalten: Ersteller, Kategorie, Art (Biete oder Suche), Titel, Beschreibung,
+                    Erstelldatum, Preis, Art des Preises (Festpreis oder Verhandlungsbasis)
+                </li>
+                <li>
+                    Auf der Seite einer Anzeige sollen auch Name und Adresse des Erstellers angezeigt werden.
+                </li>
+                <li>
+                    Die generelle Logik zur Suche, Auflistung und Bearbeitung der Anzeigen soll beibehalten werden.
+                </li>
+                <li>
+                    Jedoch darf eine Anzeige nur von dem Benutzer bearbeitet werden, der sie auch erstellt hat.
+                    Für alle anderen Benutzer sollen die Felder read-only sein und POST-Anfragen dürfen nicht zu
+                    einer Änderung der Daten führen.
+                </li>
+            </ul>
+        </div>
+
+        <div class="heading">
+            Screenshots
+        </div>
+        <div class="container flattop">
+            <table>
+                <tr>
+                    <td style="width: 33%;">
+                        <a href="screenshot1.png" target="_blank">
+                            <img src="screenshot1.png" alt="Screenshot 1" style="width: 100%;" />
+                            Login
+                        </a>
+                    </td>
+                    <td style="width: 33%;">
+                    </td>
+                    <td style="width: 33%;">
+                    </td>
+                    <td style="width: 1%"></td>
+                </tr>
+                <tr>
+                    <td style="width: 33%;">
+                        <a href="screenshot2.png" target="_blank">
+                            <img src="screenshot2.png" alt="Screenshot 2" style="width: 100%;" />
+                            Registrierung
+                        </a>
+                    </td>
+                    <td style="width: 33%;">
+                        <a href="screenshot3.png" target="_blank">
+                            <img src="screenshot3.png" alt="Screenshot 3" style="width: 100%;" />
+                            Übersicht
+                        </a>
+                    </td>
+                    <td style="width: 33%;">
+                        <a href="screenshot4.png" target="_blank">
+                            <img src="screenshot4.png" alt="Screenshot 4" style="width: 100%;" />
+                            Neues Angebot
+                        </a>
+                    </td>
+                    <td style="width: 1%"></td>
+                </tr>
+                <tr>
+                    <td style="width: 33%;">
+                        <a href="screenshot5.png" target="_blank">
+                            <img src="screenshot5.png" alt="Screenshot 5" style="width: 100%;" />
+                            Angebot anzeigen
+                        </a>
+                    </td>
+                    <td style="width: 33%;">
+                        <a href="screenshot6.png" target="_blank">
+                            <img src="screenshot6.png" alt="Screenshot 6" style="width: 100%;" />
+                            Kategorien bearbeiten
+                        </a>
+                    </td>
+                    <td style="width: 33%;">
+                        <a href="screenshot7.png" target="_blank">
+                            <img src="screenshot7.png" alt="Screenshot 7" style="width: 100%;" />
+                            Benutzer bearbeiten
+                        </a>
+                    </td>
+                    <td style="width: 1%"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="heading">
+            Hinweise
+        </div>
+        <div class="container flattop">
+            <ul class="spacing">
+                <li>
+                    Ladet auch für diese Aufgabe die allerneuste Version von jTodo aus Moodle.
+                </li>
+                <li>
+                    Wenn ihr den Namen der Benutzerrolle ändert, vergesst nicht die Annotationen <tt>@RolesAllowed</tt>
+                    der Beans, die Methode <tt>signup()</tt> in der <tt>UserBean</tt> sowie die Datei <tt>glassfish-web.xml</tt>
+                    anzupassen. Sonst kommt es beim Login zu folgendem Fehler: <i>Access to the specified resource has been forbidden.</i>
+                </li>
+                <li>
+                    Nach größeren Umbauten kann es nötig sein, einmal <tt>Clean and Build</tt> auszuführen, bevor die Anwendung
+                    wieder gestartet werden kann.
+                </li>
+                <li>
+                    Nach dem Umbenennen der Pakete müsst ihr die <tt>&lt;jsp:useBean&gt;</tt>-Anweisung in der <tt>task_list.jsp</tt> anpassen.
+                </li>
+                <li>
+                    Die Methode <tt>getCurrentUser()</tt> der <tt>UserBean</tt> liefert den Stammsatz des eingeloggten
+                    Benutzers zurück.
+                </li>
+                <li>
+                    Die E-Mailadresse kann mit <tt>@Pattern(regexp = "^\\w+@\\w+\\..{2,3}(.{2,3})?$")</tt> validiert werden.
+                </li>
+                <li>
+                    Das aktuelle Datum kann mit <tt>new Date(System.currentTimeMillis())</tt> ermittelt werden.
+                </li>
+                <li>
+                    Die aktuelle Uhrzeit kann mit <tt>new Time(System.currentTimeMillis())</tt> ermittelt werden.
+                </li>
+                <li>
+                    Ein Eingabefeld kann mit <tt>&lt;input … ${readonly ? 'readonly="readonly"' : ''} … &gt;</tt> so gestaltet werden,
+                    dass es über die Variable <tt>readonly</tt> nicht-eingabebereit geschaltet werden kann.
+                </li>
+                <li>
+                    Wenn ihr das Layout der Seite anpassen wollt, müsst ihr die Dateien im Order <tt>Web Pages/less</tt> anstelle
+                    der CSS-Dateien bearbeiten.
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

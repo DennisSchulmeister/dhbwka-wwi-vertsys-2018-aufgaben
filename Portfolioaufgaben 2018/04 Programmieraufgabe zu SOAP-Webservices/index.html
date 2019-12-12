@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>🙂 Portfolioaufgabe: SOAP-Webservices</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="heading">
+            <span class="h1">
+                Portfolioaufgabe
+            </span>
+            <span class="h2">
+                SOAP-Webservices
+            </span>
+        </div>
+
+        <div class="container flattop">
+            <p>
+                <i>Früher fuhr man dorthin, wo es etwas Schönes zu sehen gab. Heute fährt man dahin, wo es einen Parkplatz gibt.</i> 🚗
+                Um diesem Problem entgegen zu wirken, weichen immer mehr Menschen auf Car Sharing aus, anstatt sich ein eigenes
+                Auto zu kaufen. In dieser Aufgabe soll es daher darum gehen, die Software für einen Autoverleih zu programmieren.
+            </p>
+            <img src="mercedes-benz.png" alt="" style="display: block; max-width: 100%; margin: 0 auto;" />
+            <p>
+                <small>
+                    <small>
+                        Bildnachweise:
+                        <a href="https://pixabay.com/de/autos-technik-vw-parkhaus-214033/" target="_blank">Pixabay: Bilderandi</a>,
+                        <a href="https://pixabay.com/de/mercedes-benz-w111-112-3216728/" target="_blank">Pixabay: Emslichter</a>
+                    </small>
+                </small>
+            </p>
+        </div>
+
+        <div class="heading">
+            Datenmodell und Enterprise Java Beans
+        </div>
+        <div class="container flattop">
+            <p>
+                Zunächst einmal brauchen wir natürlich ein Datenmodell. Irgend etwas einfaches, was nicht zu kompliziert ist,
+                aber dennoch unseren Anwendungsfall abdeckt. Die folgenden drei Tabellen sollen uns daher langen, auch wenn
+                man in einer echten Anwendung noch viel mehr Daten speichern müsste:
+            </p>
+            <img src="datenmodell.svg" alt="Skizze des Datenmodells" style="display: block; width: 100%;" />
+            <p>
+                Legt eine neue <i>Web Application</i> in Netbeans an unterteilt sie in verschiedene Pakete für Entities, EJBs
+                und Webservices. Anschließend legt darin passende Persistence Entites und für jede Persistence Entity eine
+                dazugeöhrige Enterprise Java Bean zum Lesen und Schreiben von Datensätzen an. ️️️🖋️ Wenn ihr wollt, könnt ihr dabei
+                auf die <tt>EntityBean</tt> aus den <a href="https://www.wpvs.de/vertsys/2-javaee/jpa/" target="_blank">JPA-Folien</a>
+                zurückgreifen.
+            </p>
+            <h3>Hinweis</h3>
+            <p>
+                Die Datumsfelder könnt ihr wie folgt definieren:
+            </p>
+<pre><code>import java.util.Date;
+…
+
+@Temporal(TemporalType.DATE)
+private Date startDatum = new Date();
+
+@Temporal(TemporalType.DATE)
+private Date endeDatum = new Date();
+</code></pre>
+        </div>
+
+        <div class="heading">
+            Der eigentliche Webservice
+        </div>
+        <div class="container flattop">
+            <p>
+                Auf Basis der Enterprise Java Beans soll nun ein SOAP-Webservice implementiert werden, der folgende Methoden
+                zur Verfügung stellt, wobei die Klasse von Hand angelegt und ausprogrammiert werden sollte. Zusätzlich sollten
+                die Methodenparameter und Rückgabewerte durch Verwendung der beiden Annotationen <tt>@WebResult</tt> und
+                <tt>@WebParam</tt> im XML sprechende Namen erhalten.
+            </p>
+            <table style="color: crimson; margin-left: 1em;">
+                <tr>
+                    <td style="padding-right: 0.5em; color: black;">
+                        😎
+                    </td>
+                    <td>
+                        Registrieren eines neuen Kundendatensatzes
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 0.5em; color: black;">
+                        🚓
+                    </td>
+                    <td>
+                        Anlegen eines neuen Fahrzeugs¹
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 0.5em; color: black;">
+                        📄
+                    </td>
+                    <td>
+                        Ausleihen eines Fahrzeugs
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 0.5em; color: black;">
+                        🏎️
+                    </td>
+                    <td>
+                        Auflisten aller vorhandenen Fahrzeuge
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-right: 0.5em; color: black;">
+                        🖨️
+                    </td>
+                    <td>
+                        Auflisten aller Leihverträge eines Kunden
+                    </td>
+                </tr>
+            </table>
+            <p>
+                Als kleine Herausforderung 🤔 soll das Ausleihen eines Fahrzeugs nur möglich sein, wenn es keine Überschneidungen
+                mit einem bereits bestehenden Leihvertrag gibt. Ihr müsst also sicherstellen, dass es keine Leihverträge gibt,
+                die sich auf dasselbe Fahrzeug beziehen und deren Zeitspanne sich mit dem Start- oder Endedatum des anzulegenden
+                Leihvertrags überschneidet. 📆 Andernfalls soll eine Exception geworfen werden.
+            </p>
+            <p>
+                <small>
+                    ¹ In einer echten Anwendung würde man die Anlage eines neuen Fahrzeuges natürlich anders lösen. Da würde
+                    man eher eine interne Admin-Webseite programmieren, über die solche Daten gepflegt werden können.
+                </small>
+            </p>
+
+            <h3>Hinweis</h3>
+            <p>
+                Wenn ihr den Webserivce in SoapUI testet, müsst ihr die Datumsfelder als yyyy-mm-dd, also zum Beispiel
+                2018-03-16, an den Webservice schicken.
+            </p>
+        </div>
+
+        <div class="heading">
+            Auf den Schirm!
+        </div>
+        <div class="container flattop">
+            An dieser Stelle wäre nun die Zeit gekommen, eine schöne Mobile App oder wenigstens ein Webportal als Frontend
+            für den Webservice zu entwickeln. Da das aber für diese kleine Aufgabe alles viel zu aufwändig ist, begüngen wir
+            uns mit einer Konsolenanwendung als Prototyp. Diese soll es ermöglichen, alle Methoden des Webservices aufzurufen,
+            was ungefähr so aussehen könnte:
+
+<pre>
+         .----.
+      _.'__    `.
+  .--(#)(##)---/#\
+.' @          /###\
+:         ,   #####
+ `-..__.-' _.-\###/
+        `;_:    `"'
+     .'"""""`.
+    /,  JOE  ,\
+   //  COOL!  \\
+   -Car Sharing-
+   `-._______.-'
+   ___`. | .'___
+  (______|______)
+
+
+=========
+Hauptmenü
+=========
+
+  [K] Kunde anlegen
+  [F] Fahrzeug anlegen
+  [A] Fahrzeug ausleihen
+  [L] Leihverträge auflisten
+  [E] Ende
+
+Deine Auswahl: K
+
+=============
+Kunde anlegen
+=============
+
+Vorname:      Charly
+Nachname:     Brown
+Straße:       Peanuts Park Way
+Hausnummer:   7
+Postleitzahl: 55401
+Ort:          Minesota
+Land:         USA
+
+Kundennummer 4711 wurde angelegt.
+
+=========
+Hauptmenü
+=========
+
+  [K] Kunde anlegen
+  [F] Fahrzeug anlegen
+  [A] Fahrzeug ausleihen
+  [L] Leihverträge auflisten
+  [E] Ende
+
+Deine Auswahl: A
+
+==================
+Fahrzeug ausleihen
+==================
+
+Folgende Fahrzeuge stehen zur Verfügung:
+
+  Ford Mustang, Baujahr 2017, ID 100
+  Mercedes Benz C-Klasse, Baujahr 2018, ID 150
+  BMW 5er Cabrio, Baujahr 2016, ID 165
+  Seat Leon, Baujahr 2017, ID 210
+
+Kundennummer:              4711
+Fahrzeug-ID:               100
+Abholung am (yyyy-mm-dd):  2018-04-01
+Rückgabe am (yyyy-mm-dd):  2018-04-10
+
+Alles klar! Leihvertrag mit der ID 0815 wurde angelegt.
+
+=========
+Hauptmenü
+=========
+
+… und so weiter …
+</pre>
+<p>
+    <small>
+        <small>
+            Peanuts Ascii Art:
+            <a href="http://www.chris.com/ascii/index.php?art=comics/peanuts" target="_blank">Christopher Johnson's ASCII Art Collection</a>
+        </small>
+    </small>
+</p>
+            <h3>Hinweise</h3>
+            <p>
+                1) Mit folgendem Code könnt ihr eine Zeile von der Tastatur einlesen:
+            </p>
+<pre><code>BufferedReader fromKeyboard = new BufferedReader(new InputStreamReader(System.in);
+String input = fromKeyboard.readLine();
+</code></pre>
+
+            <p>
+                2) Ein Datumsobjekt zur Übergabe an den Webservice kann wie folgt erzeugt werden:
+            </p>
+<pre><code>DatatypeFactory dtf = DatatypeFactory.newInstance();
+XMLGregorianCalendar startTimeFrom = dtf.newXMLGregorianCalendar("2018-03-16");
+</code></pre>
+            <p class="aufgabe">
+                <b>Achtung!</b> In JAX-WS scheint es einen Bug zu geben, dass ein Datumsobjekt
+                nicht an den Webservice übergeben wird, wenn es nicht direkt als Methodenparameter
+                übergeben wird. Ist das Datumsobjekt ein Attribut einer Klasse (z.B. eines Leihvertrags),
+                wird es von Java einfach nicht in das XML aufgenommen. Für diesen Bug bekommt ihr
+                natürlich keinen Punktabzug. 😇
+            </p>
+            <p>
+                3) Ein vom Webservice empfangenes Datumsobjekt kann wie folgt für die Ausgabe formiatiert werden:
+            </p>
+<pre><code>SimpleDateFormat fmt = new SimpleDateFormat("dd.MM.yyyy");
+Date date = empfangenesDatum.toGregorianCalendar().getTime();
+System.out.println("Datum und Uhrzeit in schön: " + fmt.format(date));
+</code></pre>
+
+            <p>
+                4) Angenommen euer Webservice hat eine Methode namens <tt>saveNewCustomer()</tt>, die einfach
+                ein <tt>Customer</tt>-Objekt entgegen nimmt und das gespeicherte <tt>Customer</tt>-Objekt
+                zurückliefert. Ungefähr so:
+            </p>
+            <pre><code>public Customer saveNewCustomer(Customer customer)</code></pre>
+            <p>
+                Dann müsst ihr die Methode im Client wie folgt aufrufen:
+            </p>
+<pre><code>Customer customer = new Customer();
+customer.setFirstName("Charly");
+…
+Holder&lt;Customer&gt; hCustomer = new Holder&lt;&gt;(customer);
+webservice.saveNewCustomer(hCustomer);
+
+System.out.println("Kunde mit der ID " + hCustomer.value.getId() + " wurde angelegt.");
+</code></pre>
+
+            <p>
+                5) Wenn ihr ganz am Anfang des Programms folgende Zeilen einbaut, werden die ausgetauschten
+                HTTP-Nachrichten der Webservice-Aufrufe auf der Konsole ausgegeben:
+            </p>
+<pre><code>System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
+System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
+System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
+System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
+</code></pre>
+        </div>
+    </body>
+</html>
